@@ -1,0 +1,8 @@
+name: Significance Tests ONS Corpus
+corpus: ons
+part: test
+run_ids:
+  - run_a: deduce_run_1
+    run_b: crf_regularization_rs
+  - run_a: crf_regularization_rs
+    run_b: bilstmcrf_train_with_dev

@@ -1,0 +1,6 @@
+name: Significance Tests Nursing Notes Corpus
+corpus: nursing
+part: test
+run_ids:
+  - run_a: crf_regularization_rs
+    run_b: bilstmcrf_train_with_dev

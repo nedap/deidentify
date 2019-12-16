@@ -1,0 +1,24 @@
+name: deidentify
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7.2
+  - pip=19.1
+  - tqdm=4.29.1
+  - pandas=0.23.4
+  - matplotlib=3.0.2
+  - seaborn=0.9.0
+  - scikit-learn=0.20.3
+  - unidecode=1.0.23
+  - pyyaml=5.1
+  - joblib=0.13.2
+  - pip:
+    - spacy==2.2.1
+    - https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz#egg=en_core_web_sm==2.2.0
+    - https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.2.1/nl_core_news_sm-2.2.1.tar.gz#egg=nl_core_news_sm==2.2.1
+    - git+https://github.com/vmenger/deduce.git@dd90ee918700c55658f773926d6d9c609b03c1c4#egg=deduce==1.0.1
+    - git+https://github.com/nedap/dateinfer.git@071400be9e3554d5c1871c53c516ed9523f7e6e4#egg=pydateinfer
+    - loguru==0.4.0
+    - nameparser==1.0.2
+    - sklearn-crfsuite==0.3.6
+    - flair==0.4.3

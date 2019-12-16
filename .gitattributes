@@ -1,0 +1,5 @@
+deidentify/surrogates/generators/resources/country.csv filter=lfs diff=lfs merge=lfs -text
+deidentify/surrogates/generators/resources/lastnames.csv filter=lfs diff=lfs merge=lfs -text
+deidentify/surrogates/generators/resources/postcodes-zones.csv filter=lfs diff=lfs merge=lfs -text
+deidentify/surrogates/generators/resources/firstnames_female.txt filter=lfs diff=lfs merge=lfs -text
+deidentify/surrogates/generators/resources/firstnames_male.txt filter=lfs diff=lfs merge=lfs -text

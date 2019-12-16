@@ -1,0 +1,29 @@
+doc_id,ann_id,text,start,end,tag,surrogate,manual_surrogate,checked
+example-1,T1,"van Janssen, Jan",23,39,Name,"Linders, Xandro",,False
+example-1,T2,j.van.jansen@nedap.nl,41,62,Email,t.njg.nmmeso@rcrmb.nl,,False
+example-1,T3,23 mrt,64,70,Date,07 apr,,False
+example-1,T4,Thomas,77,83,Name,Hassan,,False
+example-1,T5,Peter,85,90,Name,Yordy,,False
+example-1,T6,Peter,100,105,Name,Yordy,,False
+example-1,T7,Meijer,111,117,Name,Esma,,False
+example-1,T8,NV,247,249,Internal_Location,De Zilverling,,False
+example-1,T9,Jan van Janssen,329,344,Name,Xandro Linders,,False
+example-1,T16,Maatschappelijk werk,345,365,Other,Maatschappelijk werk,,False
+example-1,T10,"Parallelweg 2, 7141 DC Groenlo",368,398,Address,"De Flechtreed 2, 3527 BC Maasbree",,False
+example-1,T11,Healthcare,408,418,Internal_Location,Waaier,,False
+example-1,T12,Retail,422,428,Hospital,UMCU,,False
+example-1,T13,(053)4471111,429,441,Phone_fax,(058)5061099,,False
+example-1,T14,j.van.jansen@nedap.nl,442,463,Email,t.njg.nmmeso@rcrmb.nl,,False
+example-1,T15,www.nedap.nl,464,476,URL_IP,www.ioogk.nl,,False
+example-2,T1,Jan Jansen,39,49,Name,Ilker Koopal,,False
+example-2,T2,J. Jansen,62,71,Name,I. Koopal,,False
+example-2,T3,j.jnsen@email.com,76,93,Email,b.bctzl@sujko.com,,False
+example-2,T4,06-12345678,98,109,Phone_fax,06-16769063,,False
+example-2,T5,64 jaar,114,121,Age,64 jaar,,False
+example-2,T6,Utrecht,143,150,Address,Orvelte,,False
+example-2,T7,10 oktober,164,174,Date,22 november,,False
+example-2,T8,Peter de Visser,185,200,Name,Omid Esajas,,False
+example-2,T9,UMCU,234,238,Hospital,Retail,,False
+example-2,T10,De Zilverling,246,259,Internal_Location,Healthcare,,False
+example-2,T11,Aquarium,263,271,Internal_Location,NV,,False
+example-2,T12,Waaier,275,281,Internal_Location,NV,,False
