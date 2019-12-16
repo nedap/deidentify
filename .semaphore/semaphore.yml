@@ -26,6 +26,7 @@ blocks:
           - conda activate deidentify
           - pip install pytest pylint
           - which pytest && which python
+
       jobs:
         - name: Unit Tests
           commands:
