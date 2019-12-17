@@ -72,12 +72,12 @@ Afterwards, you can replace or remove the discovered entities from the documents
 
 | Name | Tagger | Language | Dataset | F1* | Precision* | Recall* |
 |------|--------|----------|---------|----|-----------|--------|
-| [DEDUCE (Menger, 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365) | `DeduceTagger` | Dutch | NUT | 0.6635 | 0.8061 | 0.5637 |
-| [model_crf_ons_tuned-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) | `CRFTagger` | Dutch | NUT | 0.8408 | 0.9194 | 0.7745 |
-| [model_bilstmcrf_ons_fast-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) | `FlairTagger`  | Dutch | NUT | 0.8878 | 0.9083 | 0.8683 |
-| [model_bilstmcrf_ons_large-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) | `FlairTagger` | Dutch | NUT | 0.8999 | 0.9259 | 0.8754 |
+| [DEDUCE (Menger, 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365) | `DeduceTagger` | Dutch | NUT | 0.7564 | 0.9092 | 0.6476 |
+| [model_crf_ons_tuned-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) | `CRFTagger` | Dutch | NUT | 0.9048 | 0.9632 | 0.8530 |
+| [model_bilstmcrf_ons_fast-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) | `FlairTagger`  | Dutch | NUT | 0.9461 | 0.9591 | 0.9335 |
+| [model_bilstmcrf_ons_large-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) | `FlairTagger` | Dutch | NUT | 0.9505 | 0.9683 | 0.9333 |
 
-**The scores are micro-averaged, entity-level precision/recall/F1 obtained on the test portion of each dataset.*
+*\*All scores are micro-averaged, blind token-level precision/recall/F1 obtained on the test portion of each dataset.*
 
 ## Citation
 
