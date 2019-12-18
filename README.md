@@ -105,8 +105,9 @@ If you want more information on the experiments in our paper, have a look here:
    * [Surrogate generation procedure](docs/04_hsdm2020_surrogate_generation.md)
    * [Experiments on English corpora: i2b2/UTHealth and nursing notes](docs/05_hsdm2020_english_datasets.md)
 
+### Computational Environment
 
-When you want to run your own experiments, we assume that you clone this code base locally and execute all commands within the following conda experiment environment.
+When you want to run your own experiments, we assume that you clone this code base locally and execute all scripts under `deidentify/` within the following conda environment:
 
 ```sh
 # Install package dependencies and add local files to the Python path of that environment.
