@@ -99,31 +99,19 @@ If you have your own dataset of annotated documents and you want to train your o
    * [Convert your data into our corpus format](docs/01_data_format.md)
    * [Train and evaluate your own models](docs/02_train_evaluate_models.md)
 
-If you want more information on the experiments in our paper, have a look at the following documents:
+If you want more information on the experiments in our paper, have a look here:
 
    * [NUT annotation guidelines](docs/03_hsdm2020_nut_annotation_guidelines.md)
    * [Surrogate generation procedure](docs/04_hsdm2020_surrogate_generation.md)
    * [Experiments on English corpora: i2b2/UTHealth and nursing notes](docs/05_hsdm2020_english_datasets.md)
 
-## Package Development
 
-If you want to make changes to the source of the package or run your own experiments, you can use the following environment:
+When you want to run your own experiments, we assume that you clone this code base locally and execute all commands within the following conda experiment environment.
 
 ```sh
 # Install package dependencies and add local files to the Python path of that environment.
 conda env create -f environment.yml
 conda activate deidentify && export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-
-# Add test dependencies
-pip install pytest pytest-cov pylint
-```
-
-To run unit tests and code linting, execute:
-
-```sh
-make test
-
-make lint
 ```
 
 ## Citation

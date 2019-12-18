@@ -2,13 +2,6 @@
 
 In this guide, we show how to train and evaluate your own models. We assume that you created a corpus with the appropriate [data format](01_data_format.md) in `data/corpus/<corpus_name>`.
 
-Also, we assume that you run the experiments in the provided conda environment:
-
-```sh
-conda env create -f environment.yml
-conda activate deidentify && export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-```
-
 ## Model Training Scripts
 
 All training scripts are located under `deidentify/methods/` and are prefixed with `run_`. For example, use `deidentify/methods/bilstmcrf/run_bilstmcrf.py` to train a BiLSTM-CRF model.
