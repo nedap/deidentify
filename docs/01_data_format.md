@@ -1,6 +1,6 @@
 # Corpus Format
 
-This guide explains how you can convert your own annotated data into our corpus format to train the sequence labeling models.
+This guide explains how you can convert your own annotated data to the corpus format used in this project. You can then use that corpus to train your own sequence labeling models.
 
 ## Data Format
 
@@ -29,7 +29,7 @@ T9 Hospital 233 237 UMCU
 
 ## Corpus Location
 
-After you converted your documents to the standoff format, copy them to the `data/corpus/<corpus_name>/` directory. Here is an example for the `dummy` corpus.
+After you converted your documents to the standoff format, copy them to the `data/corpus/<corpus_name>/` directory. Here is an example for the `dummy` corpus. In all experiment code, we follow the convention that the name of corpus directory identifies the dataset.
 
 ```
 data/
