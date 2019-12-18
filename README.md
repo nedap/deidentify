@@ -128,3 +128,7 @@ Please cite the following paper when using `deidentify`:
   year = {2020}
 }
 ```
+
+## Contact
+
+If you have any question, please contact Jan Trienes at jan.trienes@nedap.com.
