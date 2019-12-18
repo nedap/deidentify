@@ -92,6 +92,27 @@ We provide a number of pre-trained models for the Dutch language. The models wer
 
 *\*DEDUCE was developed on a dataset of psychiatric nurse notes and treatment plans. The numbers reported here were obtained by applying DEDUCE to our NUT dataset. For more information on the development of DEDUCE, see the paper by [Menger et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365).*
 
+## Package Development
+
+If you want to make changes to the source of the package or run your own experiments, you can use the following environment:
+
+```sh
+# Install package dependencies and add local files to PYTHONPATH of that environment.
+conda env create -f environment.yml
+conda activate deidentify && export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+
+# Add test dependencies
+pip install pytest pytest-cov pylint
+```
+
+To run unit tests and code linting, execute:
+
+```sh
+make test
+
+make lint
+```
+
 ## Citation
 
 Please cite the following paper when using `deidentify`:
