@@ -1,6 +1,6 @@
 # deidentify
 
-A Python library to de-identify medical records with state-of-the-art NLP methods. Pre-trained models for the Dutch and English language are available.
+A Python library to de-identify medical records with state-of-the-art NLP methods. Pre-trained models for the Dutch language are available.
 
 ## Quick Start
 
@@ -14,7 +14,7 @@ pip install deidentify
 
 ### Example Usage
 
-Below, we will create an example document and run a pre-trained de-identification model over it. First, let's download a pre-trained and save it in the model cache at `~/.deidentify`. See [below](#pre-trained-models) for a list of available models.
+Below, we will create an example document and run a pre-trained de-identification model over it. First, let's download a pre-trained model and save it in the model cache at `~/.deidentify`. See below for a [list of available models](#pre-trained-models).
 
 ```sh
 python -m deidentify.util.download_model model_bilstmcrf_ons_fast-v0.1.0 ~/.deidentify
@@ -39,7 +39,6 @@ model_file='~/.deidentify/model_bilstmcrf_ons_fast-v0.1.0/final-model.pt'
 tokenizer = TokenizerFactory().tokenizer(corpus='ons', disable=("tagger", "ner"))
 
 # Load tagger with a downloaded model file and tokenizer
-# You can also use other taggers that implement the `deidentify.taggers.TextTagger` interface
 tagger = FlairTagger(
     model_file=model_file,
     tokenizer=tokenizer
@@ -73,20 +72,25 @@ There are currently three taggers that you can use:
 
    * `deidentify.taggers.DeduceTagger`: A wrapper around the DEDUCE tagger by Menger et al. (2018, [code](https://github.com/vmenger/deduce), [paper](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365))
    * `deidentify.taggers.CRFTagger`: A CRF tagger using the feature set by Liu et al. (2015, [paper](https://www.sciencedirect.com/science/article/pii/S1532046415001197))
-   * `deidentify.taggers.FlairTagger`: A wrapper around the Flair [`SequenceTagger`](https://github.com/zalandoresearch/flair/blob/2d6e89bdfe05644b4e5c7e8327f6ecc6b834ec9e/flair/models/sequence_tagger_model.py#L68) allowing the use of neural architectures such as BiLSTM-CRF.
+   * `deidentify.taggers.FlairTagger`: A wrapper around the Flair [`SequenceTagger`](https://github.com/zalandoresearch/flair/blob/2d6e89bdfe05644b4e5c7e8327f6ecc6b834ec9e/flair/models/sequence_tagger_model.py#L68) allowing the use of neural architectures such as BiLSTM-CRF. The pre-trained models below use contextualized string embeddings by Akbik et al. (2019, [paper](https://www.aclweb.org/anthology/C18-1139/))
 
 All taggers implement the `deidentify.taggers.TextTagger` interface which you can implement to provide your own taggers.
 
 ## Pre-trained Models
 
-| Name | Tagger | Language | Dataset | F1* | Precision* | Recall* |
-|------|--------|----------|---------|----|-----------|--------|
-| [DEDUCE (Menger et al., 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365) | `DeduceTagger` | Dutch | NUT | 0.7564 | 0.9092 | 0.6476 |
-| [model_crf_ons_tuned-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) | `CRFTagger` | Dutch | NUT | 0.9048 | 0.9632 | 0.8530 |
-| [model_bilstmcrf_ons_fast-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) | `FlairTagger`  | Dutch | NUT | 0.9461 | 0.9591 | 0.9335 |
-| [model_bilstmcrf_ons_large-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) | `FlairTagger` | Dutch | NUT | 0.9505 | 0.9683 | 0.9333 |
+We provide a number of pre-trained models for the Dutch language. The models were developed on the Nedap/University of Twente (NUT) dataset. The dataset consists of 1260 documents from three domains of Dutch healthcare: elderly care, mental care and disabled care (note: in the codebase we sometimes also refer to this dataset as `ons`). More information on the design of the dataset can be found in [our paper](TODO).
 
-*\*All scores are micro-averaged, blind token-level precision/recall/F1 obtained on the test portion of each dataset.*
+
+| Name | Tagger | Language | Dataset | F1* | Precision* | Recall* | Tags |
+|------|--------|----------|---------|----|-----------|--------|--------|
+| [DEDUCE (Menger et al., 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365)** | `DeduceTagger` | Dutch | NUT | 0.7564 | 0.9092 | 0.6476 | [8 PHI Tags](https://github.com/nedap/deidentify/blob/168ad67aec586263250900faaf5a756d3b8dd6fa/deidentify/methods/deduce/run_deduce.py#L17) |
+| [model_crf_ons_tuned-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) | `CRFTagger` | Dutch | NUT | 0.9048 | 0.9632 | 0.8530 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) |
+| [model_bilstmcrf_ons_fast-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) | `FlairTagger`  | Dutch | NUT | 0.9461 | 0.9591 | 0.9335 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) |
+| [model_bilstmcrf_ons_large-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) | `FlairTagger` | Dutch | NUT | 0.9505 | 0.9683 | 0.9333 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) |
+
+*\*All scores are micro-averaged, blind token-level precision/recall/F1 obtained on the test portion of each dataset. For additional metrics, see the corresponding model release.*
+
+*\*DEDUCE was developed on a dataset of psychiatric nurse notes and treatment plans. The numbers reported here were obtained by applying DEDUCE to our NUT dataset. For more information on the development of DEDUCE, see the paper by [Menger et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365).*
 
 ## Citation
 
