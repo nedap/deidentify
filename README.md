@@ -76,7 +76,7 @@ There are currently three taggers that you can use:
 
 All taggers implement the `deidentify.taggers.TextTagger` interface which you can implement to provide your own taggers.
 
-## Pre-trained Models
+### Pre-trained Models
 
 We provide a number of pre-trained models for the Dutch language. The models were developed on the Nedap/University of Twente (NUT) dataset. The dataset consists of 1260 documents from three domains of Dutch healthcare: elderly care, mental care and disabled care (note: in the codebase we sometimes also refer to this dataset as `ons`). More information on the design of the dataset can be found in [our paper](TODO).
 
@@ -90,14 +90,27 @@ We provide a number of pre-trained models for the Dutch language. The models wer
 
 *\*All scores are micro-averaged, blind token-level precision/recall/F1 obtained on the test portion of each dataset. For additional metrics, see the corresponding model release.*
 
-*\*\*DEDUCE was developed on a dataset of psychiatric nurse notes and treatment plans. The numbers reported here were obtained by applying DEDUCE to our NUT dataset. For more information on the development of DEDUCE, see the paper by [Menger et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365).*
+*\*\*DEDUCE was developed on a dataset of psychiatric nursing notes and treatment plans. The numbers reported here were obtained by applying DEDUCE to our NUT dataset. For more information on the development of DEDUCE, see the paper by [Menger et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365).*
+
+## Running Experiments and Training Models
+
+If you have your own dataset of annotated documents and you want to train your own models on it, you can take a look at the following guides:
+
+   * [Convert your data into our corpus format](docs/01_data_format.md)
+   * [Train and evaluate your own models](docs/02_train_evaluate_models.md)
+
+If you want more information on the experiments in our paper, have a look at the following documents:
+
+   * [NUT annotation guidelines](docs/03_hsdm2020_nut_annotation_guidelines.md)
+   * [Surrogate generation procedure](docs/04_hsdm2020_surrogate_generation.md)
+   * [Experiments on English corpora: i2b2/UTHealth and nursing notes](docs/05_hsdm2020_english_datasets.md)
 
 ## Package Development
 
 If you want to make changes to the source of the package or run your own experiments, you can use the following environment:
 
 ```sh
-# Install package dependencies and add local files to PYTHONPATH of that environment.
+# Install package dependencies and add local files to the Python path of that environment.
 conda env create -f environment.yml
 conda activate deidentify && export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 
