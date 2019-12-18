@@ -1,6 +1,6 @@
 # Train and Evaluate Models
 
-In this guide, we show how to train and evaluate your own models. We assume that you created a corpus with the appropriate [data format](docs/01_data_format.md) in `data/corpus/<corpus_name>`.
+In this guide, we show how to train and evaluate your own models. We assume that you created a corpus with the appropriate [data format](01_data_format.md) in `data/corpus/<corpus_name>`.
 
 Also, we assume that you run the experiments in the provided conda environment:
 
