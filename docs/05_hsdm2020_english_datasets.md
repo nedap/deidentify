@@ -6,7 +6,7 @@ datasets:
 * Nursing notes (https://physionet.org/physiotools/deid/)
 * i2b2/UTHealth 2014 (https://www.i2b2.org/NLP/DataSets/)
 
-Both datasets can be obtained after signing a data use agreement with the corresponding research institutes. Below, we show how to convert those datasets to the [standoff format](01_data_format.md) used throughout this project. The datasets are placed in `data/corpus/nursing` and `data/corpus/i2b2`. Afterwards, the datasets can be used to [train and evaluate models](02_train_evaluate_models) on them.
+Both datasets can be obtained after signing a data use agreement with the corresponding research institutes. Below, we show how to convert those datasets to the [standoff format](01_data_format.md) used throughout this project. The datasets are placed in `data/corpus/nursing` and `data/corpus/i2b2`. Afterwards, the datasets can be used to [train and evaluate models](02_train_evaluate_models.md) on them.
 
 ## Nursing Notes
 
