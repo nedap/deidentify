@@ -72,7 +72,7 @@ There are currently three taggers that you can use:
 
    * `deidentify.taggers.DeduceTagger`: A wrapper around the DEDUCE tagger by Menger et al. (2018, [code](https://github.com/vmenger/deduce), [paper](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365))
    * `deidentify.taggers.CRFTagger`: A CRF tagger using the feature set by Liu et al. (2015, [paper](https://www.sciencedirect.com/science/article/pii/S1532046415001197))
-   * `deidentify.taggers.FlairTagger`: A wrapper around the Flair [`SequenceTagger`](https://github.com/zalandoresearch/flair/blob/2d6e89bdfe05644b4e5c7e8327f6ecc6b834ec9e/flair/models/sequence_tagger_model.py#L68) allowing the use of neural architectures such as BiLSTM-CRF. The pre-trained models below use contextualized string embeddings by Akbik et al. (2019, [paper](https://www.aclweb.org/anthology/C18-1139/))
+   * `deidentify.taggers.FlairTagger`: A wrapper around the Flair [`SequenceTagger`](https://github.com/zalandoresearch/flair/blob/2d6e89bdfe05644b4e5c7e8327f6ecc6b834ec9e/flair/models/sequence_tagger_model.py#L68) allowing the use of neural architectures such as BiLSTM-CRF. The pre-trained models below use contextualized string embeddings by Akbik et al. (2018, [paper](https://www.aclweb.org/anthology/C18-1139/))
 
 All taggers implement the `deidentify.taggers.TextTagger` interface which you can implement to provide your own taggers.
 
