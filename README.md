@@ -90,7 +90,7 @@ We provide a number of pre-trained models for the Dutch language. The models wer
 
 *\*All scores are micro-averaged, blind token-level precision/recall/F1 obtained on the test portion of each dataset. For additional metrics, see the corresponding model release.*
 
-*\*DEDUCE was developed on a dataset of psychiatric nurse notes and treatment plans. The numbers reported here were obtained by applying DEDUCE to our NUT dataset. For more information on the development of DEDUCE, see the paper by [Menger et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365).*
+*\*\*DEDUCE was developed on a dataset of psychiatric nurse notes and treatment plans. The numbers reported here were obtained by applying DEDUCE to our NUT dataset. For more information on the development of DEDUCE, see the paper by [Menger et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365).*
 
 ## Package Development
 
