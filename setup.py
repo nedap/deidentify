@@ -46,6 +46,7 @@ setuptools.setup(
     ],
     python_requires='>=3.7',
     install_requires=[
+        'requests',
         'flair>=0.4.3',
         'spacy>=2.2.1',
         'tqdm>=4.29',
