@@ -39,10 +39,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/nedap/deidentify",
     packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
-    package_data={
-        'deidentify.methods.deduce': ['*.lst'],
-        'deidentify.util': ['*.sh'],
-    },
     license=license_text,
     classifiers=[
         "Programming Language :: Python :: 3",
