@@ -9,7 +9,10 @@ import deidentify
 VERSION = deidentify.__version__
 
 with open("README.md", "r") as fh:
-    long_description = fh.read()
+    readme = fh.read()
+
+with open("LICENSE", "r") as fh:
+    license_text = fh.read()
 
 
 class VerifyVersionCommand(install):
@@ -32,7 +35,7 @@ setuptools.setup(
     author="Jan Trienes",
     author_email="jan.trines@nedap.com",
     description="De-identify free-text medical records",
-    long_description=long_description,
+    long_description=readme,
     long_description_content_type="text/markdown",
     url="https://github.com/nedap/deidentify",
     packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
@@ -40,9 +43,11 @@ setuptools.setup(
         'deidentify.methods.deduce': ['*.lst'],
         'deidentify.util': ['*.sh'],
     },
+    license=license_text,
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
+        "License :: OSI Approved :: MIT License",
     ],
     python_requires='>=3.7',
     install_requires=[
