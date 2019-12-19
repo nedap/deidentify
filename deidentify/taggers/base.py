@@ -3,9 +3,8 @@ from os.path import isfile
 from pathlib import Path
 from typing import List
 
+import deidentify
 from deidentify.base import Document
-
-cache_root = Path(Path.home(), ".deidentify")
 
 
 def cached_model_file(model: str) -> Path:
@@ -24,17 +23,17 @@ def cached_model_file(model: str) -> Path:
     model_path = None
 
     if model.startswith('model_bilstmcrf_'):
-        model_path = Path(cache_root, model, 'final-model.pt')
+        model_path = Path(deidentify.cache_root, model, 'final-model.pt')
 
     if model.startswith('model_crf_'):
-        model_path = Path(cache_root, model, 'model.pickle')
+        model_path = Path(deidentify.cache_root, model, 'model.pickle')
 
     try:
         assert isfile(model_path)
     except AssertionError:
         raise ValueError(
-            f'The model "{model}" could not be found in the model cache at "{cache_root}". '
-            'You may have to download it first.'
+            f'The model "{model}" could not be found in the model cache at '
+            f'{deidentify.cache_root}. You may have to download it first.'
         )
 
     return model_path
