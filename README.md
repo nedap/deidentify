@@ -33,16 +33,13 @@ documents = [
 ]
 
 # Select downloaded model
-model_file='~/.deidentify/model_bilstmcrf_ons_fast-v0.1.0/final-model.pt'
+model = 'model_bilstmcrf_ons_fast-v0.1.0'
 
 # Instantiate tokenizer
 tokenizer = TokenizerFactory().tokenizer(corpus='ons', disable=("tagger", "ner"))
 
 # Load tagger with a downloaded model file and tokenizer
-tagger = FlairTagger(
-    model_file=model_file,
-    tokenizer=tokenizer
-)
+tagger = FlairTagger(model=model, tokenizer=tokenizer)
 
 # Annotate your documents
 annotated_docs = tagger.annotate(documents)

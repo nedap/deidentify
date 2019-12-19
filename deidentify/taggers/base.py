@@ -44,7 +44,7 @@ def cached_model_file(model: str) -> Path:
     except AssertionError:
         raise ValueError(
             f'The model "{model}" could not be found in the model cache at '
-            f'{deidentify.cache_root}. You may have to download it first.'
+            f'"{deidentify.cache_root}". You may have to download it first.'
         )
 
     return model_path
