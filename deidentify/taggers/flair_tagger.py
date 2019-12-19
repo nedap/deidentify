@@ -5,13 +5,14 @@ from loguru import logger
 
 from deidentify.base import Document
 from deidentify.methods.bilstmcrf import flair_utils
-from deidentify.taggers.base import TextTagger
+from deidentify.taggers.base import TextTagger, lookup_model
 from deidentify.tokenizer import Tokenizer
 
 
 class FlairTagger(TextTagger):
 
-    def __init__(self, model_file, tokenizer: Tokenizer, mini_batch_size=256):
+    def __init__(self, model, tokenizer: Tokenizer, mini_batch_size=256):
+        model_file = lookup_model(model)
         self.tokenizer = tokenizer
         logger.info('Load flair model from {}'.format(model_file))
         self.tagger = SequenceTagger.load(model_file)

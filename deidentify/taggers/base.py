@@ -7,6 +7,17 @@ import deidentify
 from deidentify.base import Document
 
 
+def lookup_model(model):
+    """Get model file from model name. If `model` is a path to an existing file on the file system,
+    `model` is returned instead. Otherwise, this function searches for a model in the model download
+    cache.
+    """
+    if isfile(model):
+        return model
+
+    return cached_model_file(model)
+
+
 def cached_model_file(model: str) -> Path:
     """Converts a model name to the actual model file (.pickle/.pt) in the model download cache.
 
