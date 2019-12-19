@@ -19,6 +19,8 @@ import requests
 from loguru import logger
 from tqdm import tqdm
 
+import deidentify
+
 
 def download_file(url: str, cache_dir: str):
     os.makedirs(cache_dir, exist_ok=True)
@@ -64,13 +66,15 @@ def main(args):
         f'https://github.com/{args.owner}/{args.repo}/releases/download/{args.tag}/'
         f'{args.tag}.tar.gz'
     )
-    download_file(url, args.models_dir)
+    download_file(url, args.cache_dir)
 
 
 def arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('tag', help='Release tag.')
-    parser.add_argument('models_dir', help='Local directory to store models.')
+    parser.add_argument('--cache_dir',
+                        help='Local directory to store models. Default: %(default)s.',
+                        default=deidentify.cache_root)
     parser.add_argument('--owner',
                         help='Name of GitHub user or organization. Default: %(default)s.',
                         default='nedap')

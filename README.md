@@ -17,7 +17,7 @@ pip install deidentify
 Below, we will create an example document and run a pre-trained de-identification model over it. First, let's download a pre-trained model and save it in the model cache at `~/.deidentify`. See below for a [list of available models](#pre-trained-models).
 
 ```sh
-python -m deidentify.util.download_model model_bilstmcrf_ons_fast-v0.1.0 ~/.deidentify
+python -m deidentify.util.download_model model_bilstmcrf_ons_fast-v0.1.0
 ```
 
 Then, we can create a document, load the tagger with the pre-trained model, and finally annotate the document.
@@ -33,16 +33,13 @@ documents = [
 ]
 
 # Select downloaded model
-model_file='~/.deidentify/model_bilstmcrf_ons_fast-v0.1.0/final-model.pt'
+model = 'model_bilstmcrf_ons_fast-v0.1.0'
 
 # Instantiate tokenizer
 tokenizer = TokenizerFactory().tokenizer(corpus='ons', disable=("tagger", "ner"))
 
 # Load tagger with a downloaded model file and tokenizer
-tagger = FlairTagger(
-    model_file=model_file,
-    tokenizer=tokenizer
-)
+tagger = FlairTagger(model=model, tokenizer=tokenizer)
 
 # Annotate your documents
 annotated_docs = tagger.annotate(documents)

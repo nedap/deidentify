@@ -5,14 +5,15 @@ from loguru import logger
 
 from deidentify.base import Document
 from deidentify.methods import tagging_utils
-from deidentify.methods.crf import crf_util, crf_labeler
-from deidentify.taggers.base import TextTagger
+from deidentify.methods.crf import crf_labeler, crf_util
+from deidentify.taggers.base import TextTagger, lookup_model
 from deidentify.tokenizer import Tokenizer
 
 
 class CRFTagger(TextTagger):
 
-    def __init__(self, model_file, tokenizer: Tokenizer):
+    def __init__(self, model, tokenizer: Tokenizer):
+        model_file = lookup_model(model)
         self.tokenizer = tokenizer
         logger.info('Load sklearn-crfsuite model from {}'.format(model_file))
         with open(model_file, 'rb') as clf_file:
