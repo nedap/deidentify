@@ -11,9 +11,6 @@ VERSION = deidentify.__version__
 with open("README.md", "r") as fh:
     readme = fh.read()
 
-with open("LICENSE", "r") as fh:
-    license_text = fh.read()
-
 
 class VerifyVersionCommand(install):
     """Custom command to verify that the git tag matches the version of the python package"""
@@ -39,7 +36,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/nedap/deidentify",
     packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
-    license=license_text,
+    package_data={'': ['LICENSE']},
+    license="MIT License",
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
