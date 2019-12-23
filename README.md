@@ -57,8 +57,8 @@ This completes the annotation stage. Let's inspect the entities that the tagger 
 ```py
 from pprint import pprint
 
-first_doc_annotations = annotated_docs[0].annotations
-pprint(first_doc_annotations)
+first_doc = annotated_docs[0]
+pprint(first_doc.annotations)
 ```
 
 This should print the entities of the first document.
@@ -75,7 +75,19 @@ This should print the entities of the first document.
  Annotation(text='UMCU', start=234, end=238, tag='Hospital', doc_id='', ann_id='T8')]
 ```
 
-Afterwards, you can replace or remove the discovered entities from the documents.
+Afterwards, you can replace the discovered entities from the documents using a utility function:
+
+```py
+from deidentify.util import mask_annotations
+
+masked_doc = mask_annotations(first_doc)
+print(masked_doc.text)
+```
+
+Which should print:
+
+> Dit is stukje tekst met daarin de naam [NAME]. De patient [NAME] (e: [EMAIL], t: [PHONE_FAX]) is [AGE] oud en woonachtig in [ADDRESS]. Hij werd op [DATE] door arts [NAME] ontslagen van de kliniek van het [HOSPITAL].
+
 
 ### Available Taggers
 
