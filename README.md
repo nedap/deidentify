@@ -23,13 +23,20 @@ python -m deidentify.util.download_model model_bilstmcrf_ons_fast-v0.1.0
 Then, we can create a document, load the tagger with the pre-trained model, and finally annotate the document.
 
 ```py
-from deidentify.base import Annotation, Document
+from deidentify.base import Document
 from deidentify.taggers import FlairTagger
 from deidentify.tokenizer import TokenizerFactory
 
-# Create a document
+# Create some text
+text = (
+    "Dit is stukje tekst met daarin de naam Jan Jansen. De patient J. Jansen (e: "
+    "j.jnsen@email.com, t: 06-12345678) is 64 jaar oud en woonachtig in Utrecht. Hij werd op 10 "
+    "oktober door arts Peter de Visser ontslagen van de kliniek van het UMCU."
+)
+
+# Wrap text in document
 documents = [
-    Document(name='doc_01', text='Jan Jansen vanuit het UMCU.', annotations=[])
+    Document(name='doc_01', text=text)
 ]
 
 # Select downloaded model
@@ -57,8 +64,15 @@ pprint(first_doc_annotations)
 This should print the entities of the first document.
 
 ```py
-[Annotation(text='Jan Jansen', start='0', end='11', tag='Name', doc_id='', ann_id='T0'),
-Annotation(text='UMCU', start='23', end='27', tag='Hospital', doc_id='', ann_id='T1')]
+[Annotation(text='Jan Jansen', start=39, end=49, tag='Name', doc_id='', ann_id='T0'),
+ Annotation(text='J. Jansen', start=62, end=71, tag='Name', doc_id='', ann_id='T1'),
+ Annotation(text='j.jnsen@email.com', start=76, end=93, tag='Email', doc_id='', ann_id='T2'),
+ Annotation(text='06-12345678', start=98, end=109, tag='Phone_fax', doc_id='', ann_id='T3'),
+ Annotation(text='64 jaar', start=114, end=121, tag='Age', doc_id='', ann_id='T4'),
+ Annotation(text='Utrecht', start=143, end=150, tag='Address', doc_id='', ann_id='T5'),
+ Annotation(text='10 oktober', start=164, end=174, tag='Date', doc_id='', ann_id='T6'),
+ Annotation(text='Peter de Visser', start=185, end=200, tag='Name', doc_id='', ann_id='T7'),
+ Annotation(text='UMCU', start=234, end=238, tag='Hospital', doc_id='', ann_id='T8')]
 ```
 
 Afterwards, you can replace or remove the discovered entities from the documents.
