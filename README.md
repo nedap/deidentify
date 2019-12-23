@@ -109,6 +109,7 @@ If you have your own dataset of annotated documents and you want to train your o
 
    * [Convert your data into our corpus format](docs/01_data_format.md)
    * [Train and evaluate your own models](docs/02_train_evaluate_models.md)
+   * [Logging and pipeline verbosity](docs/06_pipeline_verbosity.md)
 
 If you want more information on the experiments in our paper, have a look here:
 
