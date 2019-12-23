@@ -38,7 +38,7 @@ class Annotation(namedtuple('Annotation', ['text', 'start', 'end', 'tag', 'doc_i
 
 class Document:
 
-    def __init__(self, name: str, text: str, annotations: List[Annotation]):
+    def __init__(self, name: str, text: str, annotations: List[Annotation] = ()):
         self.name = name
         self.text = text
         self.annotations = annotations
