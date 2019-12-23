@@ -7,8 +7,11 @@ from deidentify.taggers.base import TextTagger
 
 class DeduceTagger(TextTagger):
 
+    def __init__(self, verbose=False):
+        self.verbose = verbose
+
     def annotate(self, documents: List[Document]) -> List[Document]:
-        docs_predicted = run_deduce.predict(documents)
+        docs_predicted = run_deduce.predict(documents, verbose=self.verbose)
         return docs_predicted
 
     @property

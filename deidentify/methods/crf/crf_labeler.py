@@ -14,6 +14,7 @@ import string
 from typing import Callable, Dict, List, Tuple
 
 import sklearn_crfsuite
+from tqdm import tqdm
 from unidecode import unidecode
 
 from deidentify.methods.tagging_utils import Token
@@ -159,17 +160,21 @@ class SentenceFilterCRF(sklearn_crfsuite.CRF):
 
         return super(SentenceFilterCRF, self).fit(X, y, X_dev=X_dev, y_dev=y_dev)
 
+    def predict(self, X, verbose=False):
+        X = tqdm(X, disable=not verbose, desc='Tag sentences')
+        return super().predict(X)
+
     def predict_single(self, xseq):
         if self.ignore_sentence(xseq):
             return [self.ignored_label] * len(xseq)
 
-        return super(SentenceFilterCRF, self).predict_single(xseq)
+        return super().predict_single(xseq)
 
     def predict_marginals_single(self, xseq):
         if self.ignore_sentence(xseq):
             return [1] * len(xseq)
 
-        return super(SentenceFilterCRF, self).predict_marginals_single(xseq)
+        return super().predict_marginals_single(xseq)
 
 
 def sklearn_crfsuite_feature_extractor(sent, i):

@@ -46,7 +46,7 @@ model = 'model_bilstmcrf_ons_fast-v0.1.0'
 tokenizer = TokenizerFactory().tokenizer(corpus='ons', disable=("tagger", "ner"))
 
 # Load tagger with a downloaded model file and tokenizer
-tagger = FlairTagger(model=model, tokenizer=tokenizer)
+tagger = FlairTagger(model=model, tokenizer=tokenizer, verbose=False)
 
 # Annotate your documents
 annotated_docs = tagger.annotate(documents)
@@ -109,6 +109,7 @@ If you have your own dataset of annotated documents and you want to train your o
 
    * [Convert your data into our corpus format](docs/01_data_format.md)
    * [Train and evaluate your own models](docs/02_train_evaluate_models.md)
+   * [Logging and pipeline verbosity](docs/06_pipeline_verbosity.md)
 
 If you want more information on the experiments in our paper, have a look here:
 
