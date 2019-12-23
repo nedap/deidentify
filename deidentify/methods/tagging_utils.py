@@ -41,7 +41,7 @@ def standoff_to_sents(docs: List[Document],
     sents = []
     sents_docs = []
 
-    for doc in tqdm(docs, disable=not verbose):
+    for doc in tqdm(docs, disable=not verbose, desc='Tokenize documents'):
         parsed_doc = tokenizer.parse_text(doc.text)
 
         bio_tags = _doc_to_bio(parsed_doc, doc.annotations)

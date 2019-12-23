@@ -11,17 +11,22 @@ from deidentify.tokenizer import Tokenizer
 
 class FlairTagger(TextTagger):
 
-    def __init__(self, model, tokenizer: Tokenizer, mini_batch_size=256):
-        model_file = lookup_model(model)
+    def __init__(self, model, tokenizer: Tokenizer, mini_batch_size=256, verbose=False):
         self.tokenizer = tokenizer
+        self.mini_batch_size = mini_batch_size
+        self.verbose = verbose
+
+        model_file = lookup_model(model)
         logger.info('Load flair model from {}'.format(model_file))
         self.tagger = SequenceTagger.load(model_file)
-        self.mini_batch_size = mini_batch_size
         logger.info('Finish loading flair model.')
 
     def annotate(self, documents: List[Document]) -> List[Document]:
         flair_sents, parsed_docs = flair_utils.standoff_to_flair_sents(
-            docs=documents, tokenizer=self.tokenizer)
+            docs=documents,
+            tokenizer=self.tokenizer,
+            verbose=self.verbose
+        )
 
         self.tagger.predict(flair_sents, mini_batch_size=self.mini_batch_size)
 
