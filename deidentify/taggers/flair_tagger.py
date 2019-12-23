@@ -28,7 +28,7 @@ class FlairTagger(TextTagger):
             verbose=self.verbose
         )
 
-        self.tagger.predict(flair_sents, mini_batch_size=self.mini_batch_size)
+        self.tagger.predict(flair_sents, mini_batch_size=self.mini_batch_size, verbose=self.verbose)
 
         annotated_docs = flair_utils.flair_sents_to_standoff(flair_sents, parsed_docs)
         return annotated_docs

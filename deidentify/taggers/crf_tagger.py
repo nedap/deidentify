@@ -31,7 +31,7 @@ class CRFTagger(TextTagger):
         )
 
         X_features, _ = crf_labeler.sents_to_features_and_labels(sents, self.feature_extractor)
-        y_pred = self.tagger.predict(X_features)
+        y_pred = self.tagger.predict(X_features, verbose=self.verbose)
         annotated_docs = tagging_utils.sents_to_standoff(y_pred, parsed_docs)
         return annotated_docs
 

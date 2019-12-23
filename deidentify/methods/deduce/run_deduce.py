@@ -63,7 +63,7 @@ def rewrite_annotations(text, annotations):
 def predict(documents: List[Document], corpus_name='ons', verbose=False) -> List[Document]:
     predictions = []
 
-    for doc in tqdm(documents, disable=not verbose, desc='De-identify documents'):
+    for doc in tqdm(documents, disable=not verbose, desc='Tag documents'):
         annotator = DeduceAnnotator(doc.text)
         annotations = annotator.annotations()
         if corpus_name == 'ons':
