@@ -15,7 +15,7 @@ class Annotation(namedtuple('Annotation', ['text', 'start', 'end', 'tag', 'doc_i
         return super(Annotation, cls).__new__(cls, text, start, end, tag, doc_id, ann_id)
 
     def __str__(self):
-        t = u"Annotation(text='{}', start='{}', end='{}', tag='{}', doc_id='{}', ann_id='{}')"
+        t = u"Annotation(text='{}', start={}, end={}, tag='{}', doc_id='{}', ann_id='{}')"
         return t.format(self.text, self.start, self.end, self.tag, self.doc_id, self.ann_id)
 
     def __unicode__(self):
@@ -38,7 +38,7 @@ class Annotation(namedtuple('Annotation', ['text', 'start', 'end', 'tag', 'doc_i
 
 class Document:
 
-    def __init__(self, name: str, text: str, annotations: List[Annotation]):
+    def __init__(self, name: str, text: str, annotations: List[Annotation] = ()):
         self.name = name
         self.text = text
         self.annotations = annotations
