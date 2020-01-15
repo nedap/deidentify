@@ -49,9 +49,9 @@ setuptools.setup(
         'flair>=0.4.3',
         'spacy>=2.2.1',
         'tqdm>=4.29',
+        'deduce>=1.0.2',
         'en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz#egg=en_core_web_sm==2.2.0',
         'nl_core_news_sm @ https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.2.1/nl_core_news_sm-2.2.1.tar.gz#egg=nl_core_news_sm==2.2.1',
-        'deduce @ git+https://github.com/vmenger/deduce.git@dd90ee918700c55658f773926d6d9c609b03c1c4#egg=deduce==1.0.1',
         'loguru>=0.2.5',
     ],
     cmdclass={
