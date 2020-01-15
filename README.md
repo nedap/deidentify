@@ -12,6 +12,12 @@ Create a new virtual environment with an environment manager of your choice. The
 pip install deidentify
 ```
 
+We use the spaCy tokenizer. For good compatibility with the pre-trained models, we recommend using the same spaCy tokenization models that were used at de-identification model training time:
+
+```sh
+pip install https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.2.1/nl_core_news_sm-2.2.1.tar.gz#egg=nl_core_news_sm==2.2.1
+```
+
 ### Example Usage
 
 Below, we will create an example document and run a pre-trained de-identification model over it. First, let's download a pre-trained model and save it in the model cache at `~/.deidentify`. See below for a [list of available models](#pre-trained-models).
