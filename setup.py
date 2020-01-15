@@ -51,6 +51,9 @@ setuptools.setup(
         'tqdm>=4.29',
         'deduce>=1.0.2',
         'loguru>=0.2.5',
+        'sklearn-crfsuite>=0.3.6',
+        'unidecode>=1.0.23',
+        'pandas>=0.23.4'
     ],
     cmdclass={
         'verify': VerifyVersionCommand,
