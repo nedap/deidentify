@@ -50,8 +50,6 @@ setuptools.setup(
         'spacy>=2.2.1',
         'tqdm>=4.29',
         'deduce>=1.0.2',
-        'en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz#egg=en_core_web_sm==2.2.0',
-        'nl_core_news_sm @ https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.2.1/nl_core_news_sm-2.2.1.tar.gz#egg=nl_core_news_sm==2.2.1',
         'loguru>=0.2.5',
     ],
     cmdclass={
