@@ -2,6 +2,12 @@
 
 A Python library to de-identify medical records with state-of-the-art NLP methods. Pre-trained models for the Dutch language are available.
 
+This repository shares the resources developed in the following paper:
+
+> J. Trienes, D. Trieschnigg, C. Seifert, and D. Hiemstra. Comparing Rule-based, Feature-based and Deep Neural Methods for De-identification of Dutch Medical Records. In: *Proceedings of the 1st ACM WSDM Health Search and Data Mining Workshop (HSDM)*, 2020.
+
+You can get the authors' version of the paper from this link: [paper](https://djoerdhiemstra.com/wp-content/uploads/hsdm20.pdf).
+
 ## Quick Start
 
 ### Installation
@@ -153,7 +159,7 @@ Please cite the following paper when using `deidentify`:
 @inproceedings{Trienes:2020:CRF,
   title={Comparing Rule-based, Feature-based and Deep Neural Methods for De-identification of Dutch Medical Records},
   author={Trienes, Jan and Trieschnigg, Dolf and Seifert, Christin and Hiemstra, Djoerd},
-  booktitle = {Proceedings of the 1st Health Search and Data Mining Workshop},
+  booktitle = {Proceedings of the 1st ACM WSDM Health Search and Data Mining Workshop},
   series = {{HSDM} 2020},
   year = {2020}
 }
