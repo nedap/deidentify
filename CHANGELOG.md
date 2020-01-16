@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.2](https://github.com/nedap/deidentify/tree/v0.3.2) (2020-01-16)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.3.1...v0.3.2)
+
+**Merged pull requests:**
+
+- Fix bug in setup.py [\#11](https://github.com/nedap/deidentify/pull/11) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.3.1](https://github.com/nedap/deidentify/tree/v0.3.1) (2020-01-16)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.3.0...v0.3.1)
