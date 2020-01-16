@@ -30,7 +30,7 @@ setuptools.setup(
     name="deidentify",
     version=VERSION,
     author="Jan Trienes",
-    author_email="jan.trines@nedap.com",
+    author_email="jan.trienes@nedap.com",
     description="De-identify free-text medical records",
     long_description=readme,
     long_description_content_type="text/markdown",
