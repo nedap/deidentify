@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.1](https://github.com/nedap/deidentify/tree/v0.3.1) (2020-01-16)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.3.0...v0.3.1)
+
+**Merged pull requests:**
+
+- Add bound on torch version [\#10](https://github.com/nedap/deidentify/pull/10) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.3.0](https://github.com/nedap/deidentify/tree/v0.3.0) (2020-01-16)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/model_bilstmcrf_ons_fast-v0.1.0...v0.3.0)
