@@ -111,6 +111,16 @@ There are currently three taggers that you can use:
 
 All taggers implement the `deidentify.taggers.TextTagger` interface which you can implement to provide your own taggers.
 
+### Tag Set
+
+A `deidentify.taggers.TextTagger` has a `tags` property that can be used to get the supported tags. Example: the FlairTagger tagger in above demo has following tags:
+
+```py
+>>> tagger.tags
+['Internal_Location', 'Age', 'Phone_fax', 'Name', 'SSN', 'Hospital', 'Email', 'Initials', 'O',
+'Organization_Company', 'ID', 'Profession', 'Care_Institute', 'Other', 'Date', 'URL_IP', 'Address']
+```
+
 ### Pre-trained Models
 
 We provide a number of pre-trained models for the Dutch language. The models were developed on the Nedap/University of Twente (NUT) dataset. The dataset consists of 1260 documents from three domains of Dutch healthcare: elderly care, mental care and disabled care (note: in the codebase we sometimes also refer to this dataset as `ons`). More information on the design of the dataset can be found in [our paper](TODO).
