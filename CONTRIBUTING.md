@@ -19,7 +19,7 @@ conda activate deidentify && export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 Execute the following to add the development dependencies to this project:
 
 ```sh
-pip install pytest pytest-cov pylint
+pip install -U -r requirements-dev.txt
 ```
 
 To run unit tests and code linting execute:
