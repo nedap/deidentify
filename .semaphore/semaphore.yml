@@ -27,7 +27,7 @@ blocks:
           - conda env update -f environment.yml
           - cache store conda-environments ~/miniconda3/envs
           - conda activate deidentify
-          - pip install pytest pylint
+          - pip install -U -r requirements-dev.txt
           - which pytest && which python
 
       jobs:
