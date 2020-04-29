@@ -2,6 +2,8 @@
 
 For future research, we provide the annotations guidelines that we distributed to our annotators to mark PHI examples in the NUT corpus. Those guidelines can be found below.
 
+We used the [brat rapid annotation tool](http://brat.nlplab.org) to annotate our dataset. The configuration of our brat environment can be found in [`./brat-annotation/annotation.conf`](docs/brat-annotation/annotation.conf).
+
 ## Annotation Guidelines
 
 For the development of an automatic de-identification software, we require medical records where the protected health information (PHI) has been marked up so that the annotations can be used to develop automatic de-identification methods.
