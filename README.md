@@ -6,7 +6,7 @@ This repository shares the resources developed in the following paper:
 
 > J. Trienes, D. Trieschnigg, C. Seifert, and D. Hiemstra. Comparing Rule-based, Feature-based and Deep Neural Methods for De-identification of Dutch Medical Records. In: *Proceedings of the 1st ACM WSDM Health Search and Data Mining Workshop (HSDM)*, 2020.
 
-You can get the authors' version of the paper from this link: [paper](https://djoerdhiemstra.com/wp-content/uploads/hsdm20.pdf).
+You can get the authors' version of the paper from this link: [paper](https://arxiv.org/abs/2001.05714).
 
 ## Quick Start
 
@@ -123,7 +123,7 @@ A `deidentify.taggers.TextTagger` has a `tags` property that can be used to get 
 
 ### Pre-trained Models
 
-We provide a number of pre-trained models for the Dutch language. The models were developed on the Nedap/University of Twente (NUT) dataset. The dataset consists of 1260 documents from three domains of Dutch healthcare: elderly care, mental care and disabled care (note: in the codebase we sometimes also refer to this dataset as `ons`). More information on the design of the dataset can be found in [our paper](TODO).
+We provide a number of pre-trained models for the Dutch language. The models were developed on the Nedap/University of Twente (NUT) dataset. The dataset consists of 1260 documents from three domains of Dutch healthcare: elderly care, mental care and disabled care (note: in the codebase we sometimes also refer to this dataset as `ons`). More information on the design of the dataset can be found in [our paper](https://arxiv.org/abs/2001.05714).
 
 
 | Name | Tagger | Language | Dataset | F1* | Precision* | Recall* | Tags |
