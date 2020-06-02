@@ -38,6 +38,8 @@ def benchmark_tagger(tagger: TextTagger, docs: List[Document], num_tokens: int):
         'std': np.std(durations),
         'tokens/s': num_tokens / np.mean(durations),
         'docs/s': len(docs) / np.mean(durations),
+        'num_docs': len(docs),
+        'num_tokens': num_tokens
     }
 
 
