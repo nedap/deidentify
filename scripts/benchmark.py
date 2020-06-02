@@ -13,7 +13,7 @@ from deidentify.taggers import CRFTagger, DeduceTagger, FlairTagger, TextTagger
 from deidentify.tokenizer import TokenizerFactory
 
 N_REPETITIONS = 5
-N_SENTS = 500
+N_SENTS = 5000
 
 
 def load_data():
