@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 export CUDA_VISIBLE_DEVICES=0
 python -m scripts.benchmark benchmark_gpu
 
