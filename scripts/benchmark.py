@@ -12,8 +12,8 @@ from deidentify.base import Document
 from deidentify.taggers import CRFTagger, DeduceTagger, FlairTagger, TextTagger
 from deidentify.tokenizer import TokenizerFactory
 
-N_REPETITIONS = 2
-N_SENTS = 50
+N_REPETITIONS = 5
+N_SENTS = 500
 
 
 def load_data():
@@ -73,7 +73,7 @@ def main(args):
         tagger_names.append(tagger_name)
 
     df = pd.DataFrame(data=benchmark_results, index=tagger_names)
-    df.to_csv(f'benchmark-{args.benchmark_name}.csv')
+    df.to_csv(f'{args.benchmark_name}.csv')
     logger.info('\n{}', df)
 
 
