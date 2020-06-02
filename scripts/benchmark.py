@@ -50,23 +50,27 @@ def main(args):
     tokenizer_bilstm = TokenizerFactory().tokenizer(corpus='ons', disable=("tagger", "ner"))
 
     taggers = [
-        DeduceTagger(verbose=True),
-        CRFTagger(
+        ('DEDUCE', DeduceTagger(verbose=True)),
+        ('CRF', CRFTagger(
             model='model_crf_ons_tuned-v0.1.0',
             tokenizer=tokenizer_crf,
             verbose=True
-        ),
-        FlairTagger(
+        )),
+        ('BiLSTM-CRF (large)', FlairTagger(
             model='model_bilstmcrf_ons_large-v0.1.0',
             tokenizer=tokenizer_bilstm,
             verbose=True
-        )
+        )),
+        ('BiLSTM-CRF (fast)', FlairTagger(
+            model='model_bilstmcrf_ons_fast-v0.1.0',
+            tokenizer=tokenizer_bilstm,
+            verbose=True
+        ))
     ]
 
     benchmark_results = []
     tagger_names = []
-    for tagger in taggers:
-        tagger_name = tagger.__class__.__name__
+    for tagger_name, tagger in taggers:
         logger.info(f'Benchmark inference for tagger: {tagger_name}')
         scores = benchmark_tagger(tagger, documents, num_tokens)
         benchmark_results.append(scores)
