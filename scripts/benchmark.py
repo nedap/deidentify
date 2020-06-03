@@ -4,6 +4,7 @@ from typing import List
 
 import numpy as np
 import pandas as pd
+import torch
 from flair.datasets import CONLL_03_DUTCH
 from loguru import logger
 from tqdm import tqdm
@@ -32,6 +33,9 @@ def benchmark_tagger(tagger: TextTagger, docs: List[Document], num_tokens: int):
         tagger.annotate(docs)
         end = timer()
         durations.append(end - start)
+
+        if isinstance(tagger, FlairTagger) and torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
     return {
         'mean': np.mean(durations),
