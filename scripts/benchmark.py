@@ -86,6 +86,18 @@ def main(args):
 def arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("benchmark_name", type=str, help="Name of the benchmark.")
+    parser.add_argument(
+        "--bilstmcrf_large_batch_size",
+        type=int,
+        help="Name of the benchmark.",
+        default=256
+    )
+    parser.add_argument(
+        "--bilstmcrf_small_batch_size",
+        type=int,
+        help="Name of the benchmark.",
+        default=256
+    )
     return parser.parse_args()
 
 
