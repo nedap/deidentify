@@ -6,7 +6,7 @@ export CUDA_VISIBLE_DEVICES=0
 # Smaller batch size so that sequences with Flair embeddings fit in GPU memory.
 python -m scripts.benchmark benchmark_gpu \
     --bilstmcrf_large_batch_size 64 \
-    --bilstmcrf_small_batch_size 64
+    --bilstmcrf_fast_batch_size 64
 
 export CUDA_VISIBLE_DEVICES=""
 export MKL_NUM_THREADS=32
