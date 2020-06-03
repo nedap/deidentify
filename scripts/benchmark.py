@@ -61,11 +61,13 @@ def main(args):
         ('BiLSTM-CRF (large)', FlairTagger(
             model='model_bilstmcrf_ons_large-v0.1.0',
             tokenizer=tokenizer_bilstm,
+            mini_batch_size=args.bilstmcrf_large_batch_size,
             verbose=True
         )),
         ('BiLSTM-CRF (fast)', FlairTagger(
             model='model_bilstmcrf_ons_fast-v0.1.0',
             tokenizer=tokenizer_bilstm,
+            mini_batch_size=args.bilstmcrf_fast_batch_size,
             verbose=True
         ))
     ]
@@ -89,13 +91,13 @@ def arg_parser():
     parser.add_argument(
         "--bilstmcrf_large_batch_size",
         type=int,
-        help="Name of the benchmark.",
+        help="Batch size to use with the large model.",
         default=256
     )
     parser.add_argument(
-        "--bilstmcrf_small_batch_size",
+        "--bilstmcrf_fast_batch_size",
         type=int,
-        help="Name of the benchmark.",
+        help="Batch size to use with the fast model.",
         default=256
     )
     return parser.parse_args()
