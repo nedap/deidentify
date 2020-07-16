@@ -8,6 +8,8 @@ This repository shares the resources developed in the following paper:
 
 You can get the authors' version of the paper from this link: [paper](https://arxiv.org/abs/2001.05714).
 
+Blog post: https://medium.com/nedap/de-identification-of-ehr-using-nlp-a270d40fc442.
+
 ## Quick Start
 
 ### Installation
