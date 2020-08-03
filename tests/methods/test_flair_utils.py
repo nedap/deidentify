@@ -1,5 +1,6 @@
 from flair.data import Sentence
 
+from deidentify.base import Annotation, Document
 from deidentify.dataset.corpus_loader import DUMMY_CORPUS, CorpusLoader
 from deidentify.methods.bilstmcrf import flair_utils
 from deidentify.tokenizer import TokenizerFactory
@@ -91,13 +92,30 @@ def test_filtered_corpus():
     assert len(filtered_corpus.test_ignored) == 0
 
 
+def test_flair_sentence_with_whitespace_tokens():
+    text = 'Mw geniet zichtbaar.  Maarten is de afgelopen periode veelal afwezig.'
+    annotation = Annotation(
+        text='Maarten',
+        start=text.index('Maarten'),
+        end=text.index('Maarten') + len('Maarten'),
+        tag='PERSON'
+    )
+    doc = Document(name='', text=text, annotations=[annotation])
 
-if __name__ == '__main__':
-    corpus = CorpusLoader().load_corpus(DUMMY_CORPUS)
     tokenizer = TokenizerFactory().tokenizer('ons')
-    docs = corpus.train
-    sents, parsed_docs = flair_utils.standoff_to_flair_sents(docs, tokenizer)
+    flair_sents, docs = flair_utils.standoff_to_flair_sents([doc], tokenizer)
 
-    print(repr(docs[0].text))
-    for sent in sents:
-        print(' '.join([repr(token.text) for token in sent.tokens]))
+    # spaCy adds consecutive whitespace tokens as a single whitespace. These should be retained
+    # in the Flair sentence, otherwise it's not possible to reconstruct the original document from
+    # the tokenized representation.
+    assert [token.text for token in flair_sents[0]] == ['Mw', 'geniet', 'zichtbaar', '.', ' ']
+
+    spacy_doc = docs[0].spacy_doc
+    spacy_sents = list(spacy_doc.sents)
+    assert len(flair_sents) == 2
+    assert len(spacy_sents) == 2
+
+    assert len(flair_sents[0]) == 5
+    assert len(spacy_sents[0]) == 5
+    assert len(flair_sents[1]) == 8
+    assert len(spacy_sents[1]) == 8
