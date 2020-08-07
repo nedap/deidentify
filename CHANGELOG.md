@@ -1,5 +1,24 @@
 # Changelog
 
+## [v0.3.3](https://github.com/nedap/deidentify/tree/v0.3.3) (2020-08-07)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.3.2...v0.3.3)
+
+**Closed issues:**
+
+- Question about hardware required for model training [\#14](https://github.com/nedap/deidentify/issues/14)
+- Semaphore 2 : missing auto\_cancel parameter in semaphore.yml [\#12](https://github.com/nedap/deidentify/issues/12)
+
+**Merged pull requests:**
+
+- Fix BiLSTM-CRF with consecutive whitespace tokens [\#20](https://github.com/nedap/deidentify/pull/20) ([jantrienes](https://github.com/jantrienes))
+- Pin torch version in environment.yml [\#19](https://github.com/nedap/deidentify/pull/19) ([jantrienes](https://github.com/jantrienes))
+- Add efficiency benchmark [\#18](https://github.com/nedap/deidentify/pull/18) ([jantrienes](https://github.com/jantrienes))
+- Add requirements-dev.txt to list explicit dev requirements [\#17](https://github.com/nedap/deidentify/pull/17) ([jantrienes](https://github.com/jantrienes))
+- Add example on available tags per tagger [\#16](https://github.com/nedap/deidentify/pull/16) ([jantrienes](https://github.com/jantrienes))
+- Add brat annotation config [\#15](https://github.com/nedap/deidentify/pull/15) ([jantrienes](https://github.com/jantrienes))
+- Add semaphore auto\_cancel for branches other than master [\#13](https://github.com/nedap/deidentify/pull/13) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.3.2](https://github.com/nedap/deidentify/tree/v0.3.2) (2020-01-16)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.3.1...v0.3.2)
