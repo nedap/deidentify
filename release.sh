@@ -3,6 +3,7 @@ set -e
 
 if [[ $# -eq 0 ]] ; then
     echo 'usage: ./release.sh <version>'
+    echo 'example: ./release.sh 0.3.2'
     exit 1
 fi
 
