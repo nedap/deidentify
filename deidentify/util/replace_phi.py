@@ -4,6 +4,7 @@ from deidentify.base import Annotation, Document
 from deidentify.surrogates.dataset_deidentifier import DatasetDeidentifier
 from deidentify.surrogates.dataset_deidentifier import Document as SurrogateDocument
 from deidentify.surrogates.rewrite_dataset import apply_surrogates
+from deidentify.surrogates.generators import RandomData
 
 
 def _uppercase_formatter(annotation: Annotation):
@@ -57,8 +58,9 @@ def mask_annotations(document: Document,
     return Document(name=document.name, text=text_rewritten, annotations=annotations_rewritten)
 
 
-def surrogate_annotations(docs: List[Document]) -> List[Document]:
-    dataset_deidentifier = DatasetDeidentifier()
+def surrogate_annotations(docs: List[Document], seed=42) -> List[Document]:
+    random_data = RandomData(seed=seed)
+    dataset_deidentifier = DatasetDeidentifier(random_data=random_data)
 
     surrogate_docs = [SurrogateDocument(doc.annotations, doc.text) for doc in docs]
     surrogate_docs = dataset_deidentifier.generate_surrogates(documents=surrogate_docs)
