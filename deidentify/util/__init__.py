@@ -1,1 +1,1 @@
-from .replace_phi import mask_annotations
+from .replace_phi import mask_annotations, surrogate_annotations

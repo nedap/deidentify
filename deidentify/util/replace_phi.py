@@ -1,6 +1,9 @@
-from typing import Callable
+from typing import Callable, List
 
 from deidentify.base import Annotation, Document
+from deidentify.surrogates.dataset_deidentifier import DatasetDeidentifier
+from deidentify.surrogates.dataset_deidentifier import Document as SurrogateDocument
+from deidentify.surrogates.rewrite_dataset import apply_surrogates
 
 
 def _uppercase_formatter(annotation: Annotation):
@@ -52,3 +55,15 @@ def mask_annotations(document: Document,
 
     text_rewritten += document.text[original_text_pointer:]
     return Document(name=document.name, text=text_rewritten, annotations=annotations_rewritten)
+
+
+def surrogate_annotations(docs: List[Document]) -> List[Document]:
+    dataset_deidentifier = DatasetDeidentifier()
+
+    surrogate_docs = [SurrogateDocument(doc.annotations, doc.text) for doc in docs]
+    surrogate_docs = dataset_deidentifier.generate_surrogates(documents=surrogate_docs)
+
+    for doc in surrogate_docs:
+        annotations, surrogates = doc.annotation_surrogate_pairs()
+        rewritten_text, rewritten_annotations = apply_surrogates(doc.text, annotations, surrogates)
+        yield Document(name='', text=rewritten_text, annotations=rewritten_annotations)
