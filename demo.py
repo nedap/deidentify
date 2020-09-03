@@ -37,3 +37,10 @@ from deidentify.util import mask_annotations
 
 masked_doc = mask_annotations(first_doc)
 print(masked_doc.text)
+
+
+from deidentify.util import surrogate_annotations
+
+iter_docs = surrogate_annotations(docs=[first_doc], seed=1)
+surrogate_doc = list(iter_docs)[0]
+print(surrogate_doc.text)
