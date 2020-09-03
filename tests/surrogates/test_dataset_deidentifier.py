@@ -1,8 +1,8 @@
 from os.path import dirname, join
 
+from deidentify.base import Annotation
 from deidentify.dataset.brat import load_brat_document
-from deidentify.surrogates.dataset_deidentifier import (DatasetDeidentifier,
-                                                        Document)
+from deidentify.surrogates.dataset_deidentifier import DatasetDeidentifier, Document
 
 
 def _load_documents():
@@ -31,3 +31,39 @@ def test_dataset_deidentifier():
                 assert annotation.text == surrogate
             else:
                 assert annotation.text != surrogate
+
+
+def test_generate_surrogates_without_choices():
+    text = 'Patient is being treated at UMCU.'
+    annotations = [Annotation('UMCU', text.index('UMCU'), text.index('UMCU') + 4, 'Hospital')]
+    doc = Document(annotations, text)
+
+    surrogate_doc = DatasetDeidentifier().generate_surrogates([doc])[0]
+
+    original_annotations, surrogates = surrogate_doc.annotation_surrogate_pairs()
+    assert len(original_annotations) == 1
+    assert len(surrogates) == 1
+    assert original_annotations[0].text == 'UMCU'
+    assert surrogates[0] == 'UMCU'
+
+
+def test_generate_surrogates_shuffle_choices():
+    text = 'Patient is being treated at UMCU.'
+    annotations = [Annotation('UMCU', text.index('UMCU'), text.index('UMCU') + 4, 'Hospital')]
+    doc_1 = Document(annotations, text)
+
+    text = 'Patient is being treated at MST.'
+    annotations = [Annotation('MST', text.index('MST'), text.index('MST') + 3, 'Hospital')]
+    doc_2 = Document(annotations, text)
+
+    surrogate_docs = DatasetDeidentifier().generate_surrogates([doc_1, doc_2])
+
+    original_annotations, surrogates = surrogate_docs[0].annotation_surrogate_pairs()
+    assert len(original_annotations) == 1 and len(surrogates) == 1
+    assert original_annotations[0].text == 'UMCU'
+    assert surrogates[0] == 'MST'
+
+    original_annotations, surrogates = surrogate_docs[1].annotation_surrogate_pairs()
+    assert len(original_annotations) == 1 and len(surrogates) == 1
+    assert original_annotations[0].text == 'MST'
+    assert surrogates[0] == 'UMCU'
