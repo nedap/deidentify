@@ -28,3 +28,12 @@ To run unit tests and code linting execute:
 make test
 make lint
 ```
+
+## Release
+
+To create a GitHub and PyPI release, use following commands:
+
+```sh
+./release.sh <version>
+make publish
+```
