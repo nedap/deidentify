@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.4.0](https://github.com/nedap/deidentify/tree/v0.4.0) (2020-09-04)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.3.3...v0.4.0)
+
+**Merged pull requests:**
+
+- Invalidate semaphore cache when conda env changed [\#26](https://github.com/nedap/deidentify/pull/26) ([jantrienes](https://github.com/jantrienes))
+- Add dateinfer and nameparser to setup.py [\#25](https://github.com/nedap/deidentify/pull/25) ([jantrienes](https://github.com/jantrienes))
+- Add surrogate generation demo to README [\#24](https://github.com/nedap/deidentify/pull/24) ([jantrienes](https://github.com/jantrienes))
+- Add autopep8 and isort to dev requirements and remove pylint bound [\#23](https://github.com/nedap/deidentify/pull/23) ([jantrienes](https://github.com/jantrienes))
+- Gracefully handle surrogate replacement for shuffle without choices [\#22](https://github.com/nedap/deidentify/pull/22) ([jantrienes](https://github.com/jantrienes))
+- Add utility API to generate surrogates for a set of annotated documents [\#21](https://github.com/nedap/deidentify/pull/21) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.3.3](https://github.com/nedap/deidentify/tree/v0.3.3) (2020-08-07)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.3.2...v0.3.3)
@@ -37,7 +50,7 @@
 
 ## [v0.3.0](https://github.com/nedap/deidentify/tree/v0.3.0) (2020-01-16)
 
-[Full Changelog](https://github.com/nedap/deidentify/compare/model_bilstmcrf_ons_fast-v0.1.0...v0.3.0)
+[Full Changelog](https://github.com/nedap/deidentify/compare/model_bilstmcrf_ons_large-v0.1.0...v0.3.0)
 
 **Merged pull requests:**
 
