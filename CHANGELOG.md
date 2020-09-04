@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.5.0](https://github.com/nedap/deidentify/tree/v0.5.0) (2020-09-04)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.4.0...v0.5.0)
+
+**Merged pull requests:**
+
+- Update dependencies in environment.yml [\#30](https://github.com/nedap/deidentify/pull/30) ([jantrienes](https://github.com/jantrienes))
+- Remove upper bound on torch version [\#29](https://github.com/nedap/deidentify/pull/29) ([jantrienes](https://github.com/jantrienes))
+- Fix whitespace token issue with newer flair versions [\#28](https://github.com/nedap/deidentify/pull/28) ([jantrienes](https://github.com/jantrienes))
+- Fix call to run\_deduce with "ons" corpus [\#27](https://github.com/nedap/deidentify/pull/27) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.4.0](https://github.com/nedap/deidentify/tree/v0.4.0) (2020-09-04)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.3.3...v0.4.0)
@@ -50,7 +61,7 @@
 
 ## [v0.3.0](https://github.com/nedap/deidentify/tree/v0.3.0) (2020-01-16)
 
-[Full Changelog](https://github.com/nedap/deidentify/compare/model_bilstmcrf_ons_large-v0.1.0...v0.3.0)
+[Full Changelog](https://github.com/nedap/deidentify/compare/model_crf_ons_tuned-v0.1.0...v0.3.0)
 
 **Merged pull requests:**
 
