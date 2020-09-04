@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.5.1](https://github.com/nedap/deidentify/tree/v0.5.1) (2020-09-04)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.5.0...v0.5.1)
+
+**Merged pull requests:**
+
+- Fix version and tag creation in release script [\#31](https://github.com/nedap/deidentify/pull/31) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.5.0](https://github.com/nedap/deidentify/tree/v0.5.0) (2020-09-04)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.4.0...v0.5.0)
