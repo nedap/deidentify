@@ -89,7 +89,15 @@ This should print the entities of the first document.
  Annotation(text='UMCU', start=234, end=238, tag='Hospital', doc_id='', ann_id='T8')]
 ```
 
-Afterwards, you can replace the discovered entities from the documents using a utility function:
+#### Masking or Replacing Annotations
+
+Often, it is desirable to remove the sensitive annotations from the documents. `deidentify` implements two strategies:
+
+1. **Masking:** replace annotations with placeholders. Example: `Jan Jansen -> [Name]`
+1. **Surrogates [experimental]:** replace annotations with random but realistic alternatives. Example: `Jan Jansen -> Bart Bakker`. The surrogate replacement strategy follows [Stubbs et al. (2015)](https://doi.org/10.1007/978-3-319-23633-9_27).
+
+##### Masking
+Continuing from the example above, this is how to mask annotations:
 
 ```py
 from deidentify.util import mask_annotations
@@ -102,6 +110,23 @@ Which should print:
 
 > Dit is stukje tekst met daarin de naam [NAME]. De patient [NAME] (e: [EMAIL], t: [PHONE_FAX]) is [AGE] oud en woonachtig in [ADDRESS]. Hij werd op [DATE] door arts [NAME] ontslagen van de kliniek van het [HOSPITAL].
 
+##### Surrogates [experimental]
+
+And this is how to generate surrogates:
+
+```py
+from deidentify.util import surrogate_annotations
+
+# The surrogate generation process involves some randomness.
+# You can set a seed to make the process deterministic.
+iter_docs = surrogate_annotations(docs=[first_doc], seed=1)
+surrogate_doc = list(iter_docs)[0]
+print(surrogate_doc.text)
+```
+
+This code should print:
+
+> Dit is stukje tekst met daarin de naam Gijs Hermelink. De patient G. Hermelink (e: n.qvgjj@spqms.com, t: 06-83662585) is 64 jaar oud en woonachtig in Cothen. Hij werd op 28 juni door arts Jullian van Troost ontslagen van de kliniek van het UMCU.
 
 ### Available Taggers
 
