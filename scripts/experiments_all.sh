@@ -12,7 +12,7 @@ export MKL_NUM_TRHEADS=1
 # DEDUCE, only if on "ons" corpus
 if [ "$CORPUS" == "ons" ]; then
   python deidentify/methods/deduce/run_deduce.py ons-flattened run_1
-  python deidentify/methods/deduce/unflatten_deduce_predictions.py ons run_1
+  python deidentify/methods/deduce/unflatten_deduce_predictions.py ons deduce_run_1
 fi
 
 # CRF
@@ -28,4 +28,4 @@ python deidentify/methods/bilstmcrf/run_bilstmcrf.py "$CORPUS" train_with_dev \
     --train_with_dev --pooled_contextual_embeddings
 
 # Evaluation
-python deidentify/evaluation/evaluate_corpus "$CORPUS"
+python deidentify/evaluation/evaluate_corpus.py "$CORPUS"
