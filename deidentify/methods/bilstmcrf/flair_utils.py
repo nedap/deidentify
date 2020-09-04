@@ -60,7 +60,13 @@ def standoff_to_flair_sents(docs: List[Document],
     for sent in sents:
         flair_sent = Sentence()
         for token in sent:
-            tok = Token(token.text)
+            if token.text.isspace():
+                # spaCy preserves consecutive whitespaces, while flair ignores them.
+                # This would make a round-trip standoff -> token -> standoff impossible.
+                # To accommodate whitespace tokens with flair, we add a special token.
+                tok = Token('<SPACE>')
+            else:
+                tok = Token(token.text)
             tok.add_tag(tag_type='ner', tag_value=token.label)
             flair_sent.add_token(tok)
         flair_sents.append(flair_sent)

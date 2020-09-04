@@ -25,11 +25,11 @@ def test_standoff_to_flair_sents():
         '<',
         't.njg.nmmeso@rcrmb.nl',
         '>',
-        '\n',
+        '<SPACE>',
         '07',
         'apr',
         '.',
-        '\n\n',
+        '<SPACE>',
     ]
 
     assert bio_tags == [
@@ -108,7 +108,7 @@ def test_flair_sentence_with_whitespace_tokens():
     # spaCy adds consecutive whitespace tokens as a single whitespace. These should be retained
     # in the Flair sentence, otherwise it's not possible to reconstruct the original document from
     # the tokenized representation.
-    assert [token.text for token in flair_sents[0]] == ['Mw', 'geniet', 'zichtbaar', '.', ' ']
+    assert [token.text for token in flair_sents[0]] == ['Mw', 'geniet', 'zichtbaar', '.', '<SPACE>']
 
     spacy_doc = docs[0].spacy_doc
     spacy_sents = list(spacy_doc.sents)
