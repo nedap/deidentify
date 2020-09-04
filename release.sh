@@ -16,9 +16,8 @@ echo "Release version: $version"
 sed -i '' "s/^__version__ .*/__version__ = \"$version\"/g" deidentify/__init__.py
 
 # Create new tag
-git tag -a "v$version" -m "v$version"
 git commit -a -m "Bump version to $version"
-
+git tag -a "v$version" -m "v$version"
 git push --follow-tags
 
 make publish
