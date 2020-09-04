@@ -1,6 +1,8 @@
 from collections import defaultdict
 
-from deidentify.surrogates.generators import GeneratorFactory, RandomData
+from loguru import logger
+
+from deidentify.surrogates.generators import GeneratorFactory, IdentityGenerator, RandomData
 
 
 class Document:
@@ -79,7 +81,16 @@ class DatasetDeidentifier:
 
                 if not generator:
                     choices = tag_choices[tag] - set(annotations_text)
-                    generator = generator_factory.shuffle_generator(choices)
+
+                    if not choices:
+                        logger.warning(
+                            f'Cannot apply corpus shuffle for tag={tag} as there are no choices. '
+                            f'Ensure that there are at least two distinct {tag} annotations in'
+                            f'separate documents. Will now fall-back to identity replacement.'
+                        )
+                        generator = IdentityGenerator
+                    else:
+                        generator = generator_factory.shuffle_generator(choices)
 
                 surrogates = generator(annotations=annotations_text).replace_all()
                 doc.add_surrogates(tag, surrogates)
