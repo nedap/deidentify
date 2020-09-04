@@ -31,9 +31,8 @@ make lint
 
 ## Release
 
-To create a GitHub and PyPI release, use following commands:
+To create a GitHub and PyPI release, use following command. You will be prompted for your [GitHub access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) and PyPI credentials.
 
 ```sh
 ./release.sh <version>
-make publish
 ```
