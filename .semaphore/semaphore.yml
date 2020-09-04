@@ -20,23 +20,23 @@ blocks:
           - chmod +x miniconda.sh
           - ./miniconda.sh -b
           - export PATH=~/miniconda3/bin:$PATH
-          - conda init bash
-          # Afrer `conda init bash`, the bash config has to be reloaded
-          - source ~/.bashrc
-          - cache restore conda-environments
+          - cache restore conda-environments-$(checksum environment.yml)
           - conda env update -f environment.yml
-          - cache store conda-environments ~/miniconda3/envs
-          - conda activate deidentify
+          - source activate deidentify
           - pip install -U -r requirements-dev.txt
           - which pytest && which python
+          - cache store conda-environments-$(checksum environment.yml) ~/miniconda3/envs
+          # Cache conda installation (without dependencies, they are in a separate cache)
+          - rm -rf ~/miniconda3/{envs,pkgs}
+          - cache store conda ~/miniconda3/
 
       jobs:
         - name: Unit Tests
           commands:
-            - conda activate deidentify
+            - source activate deidentify
             - pytest tests/
 
         - name: Pylint
           commands:
-            - conda activate deidentify
+            - source activate deidentify
             - make lintci
