@@ -1,3 +1,5 @@
-pylint>=2.4,<2.5
+pylint
 pytest
 pytest-cov
+autopep8
+isort
