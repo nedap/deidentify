@@ -66,7 +66,7 @@ def predict(documents: List[Document], corpus_name='ons', verbose=False) -> List
     for doc in tqdm(documents, disable=not verbose, desc='Tag documents'):
         annotator = DeduceAnnotator(doc.text)
         annotations = annotator.annotations()
-        if corpus_name == 'ons':
+        if corpus_name.startswith('ons'):
             annotations = rewrite_annotations(doc.text, annotations)
 
         new_doc = Document(name=doc.name, text=doc.text, annotations=annotations)
