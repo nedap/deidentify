@@ -54,7 +54,9 @@ setuptools.setup(
         'loguru>=0.2.5',
         'sklearn-crfsuite>=0.3.6',
         'unidecode>=1.0.23',
-        'pandas>=0.23.4'
+        'pandas>=0.23.4',
+        'nameparser>=1.0',
+        'py-dateinfer>=0.4.5'
     ],
     cmdclass={
         'verify': VerifyVersionCommand,

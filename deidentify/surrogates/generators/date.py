@@ -3,7 +3,7 @@ import locale
 import re
 from datetime import datetime
 
-import dateinfer
+import pydateinfer as dateinfer
 from dateutil.relativedelta import relativedelta
 from loguru import logger
 

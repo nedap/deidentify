@@ -294,7 +294,7 @@ def test_date_surrogate_generator_all_unanchored():
 
 
 def test_switch_locale():
-    import dateinfer
+    import pydateinfer as dateinfer
     import locale
 
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
