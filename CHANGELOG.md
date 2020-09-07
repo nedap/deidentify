@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.5.2](https://github.com/nedap/deidentify/tree/v0.5.2) (2020-09-07)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.5.1...v0.5.2)
+
+**Merged pull requests:**
+
+- Bundle generator resources with python package via package\_data [\#32](https://github.com/nedap/deidentify/pull/32) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.5.1](https://github.com/nedap/deidentify/tree/v0.5.1) (2020-09-04)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.5.0...v0.5.1)
