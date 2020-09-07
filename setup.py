@@ -36,7 +36,13 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/nedap/deidentify",
     packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
-    package_data={'': ['LICENSE']},
+    package_data={
+        '': ['LICENSE'],
+        'deidentify': [
+            'surrogates/generators/resources/*.csv',
+            'surrogates/generators/resources/*.txt'
+        ]
+    },
     license="MIT License",
     classifiers=[
         "Programming Language :: Python :: 3",
