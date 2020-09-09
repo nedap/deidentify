@@ -38,6 +38,7 @@ def test_surrogate_annotations():
 
     assert len(surrogate_doc.annotations) == len(doc.annotations)
     assert re.match(r'De patient .* \(e: .*, t: .*\)', doc.text)
+    assert not surrogate_doc.annotations_without_surrogates
 
     for ann in surrogate_doc.annotations:
         assert surrogate_doc.text[ann.start:ann.end] == ann.text
