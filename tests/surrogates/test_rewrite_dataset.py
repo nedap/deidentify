@@ -51,7 +51,7 @@ def test_apply_surrogates_errors_raise():
         rewrite_dataset.apply_surrogates(text, annotations, surrogates, errors='raise')
 
 
-def test_apply_surrogates_errors_skip():
+def test_apply_surrogates_errors_ignore():
     text = 'ccc cc ccc'
     annotations = [
         Annotation('ccc', start=0, end=3, tag='A'),
@@ -60,7 +60,7 @@ def test_apply_surrogates_errors_skip():
     ]
     surrogates = ['a', None, 'b']
 
-    surrogate_doc = rewrite_dataset.apply_surrogates(text, annotations, surrogates, errors='skip')
+    surrogate_doc = rewrite_dataset.apply_surrogates(text, annotations, surrogates, errors='ignore')
     assert surrogate_doc.text == 'a cc b'
     assert surrogate_doc.annotations == [
         Annotation('a', start=0, end=1, tag='A'),

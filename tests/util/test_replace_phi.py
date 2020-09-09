@@ -56,7 +56,7 @@ def test_surrogate_annotations_errors_raise():
         _ = list(surrogate_annotations([doc]))[0]
 
 
-def test_surrogate_annotations_errors_skip():
+def test_surrogate_annotations_errors_ignore():
     original_doc = Document(
         name='test_doc',
         text='This document was written on INVALID_DATE.',
@@ -65,7 +65,8 @@ def test_surrogate_annotations_errors_skip():
         ]
     )
 
-    surrogate_doc = list(surrogate_annotations([original_doc], errors='skip'))[0]
+    gen = surrogate_annotations([original_doc], errors='ignore')
+    surrogate_doc = list(gen)[0]
     assert surrogate_doc.text == original_doc.text
     assert surrogate_doc.annotations == original_doc.annotations
     assert surrogate_doc.annotations_without_surrogates == original_doc.annotations
@@ -80,7 +81,8 @@ def test_surrogate_annotations_errors_coerce():
         ]
     )
 
-    surrogate_doc = list(surrogate_annotations([original_doc], errors='coerce'))[0]
+    gen = surrogate_annotations([original_doc], errors='coerce')
+    surrogate_doc = list(gen)[0]
     assert surrogate_doc.text == 'This document was written on [Date].'
     assert surrogate_doc.annotations == [
         Annotation(text='[Date]', start=29, end=35, tag='Date', doc_id='', ann_id='T0')

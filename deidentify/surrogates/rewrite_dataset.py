@@ -26,7 +26,7 @@ def apply_surrogates(text, annotations, surrogates, errors='raise'):
         if not surrogate:
             if errors == 'raise':
                 raise ValueError(f'No valid surrogate for {annotation}')
-            if errors == 'skip':
+            if errors == 'ignore':
                 surrogate = annotation.text
             elif errors == 'coerce':
                 surrogate = f'[{annotation.tag}]'
