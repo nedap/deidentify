@@ -1,8 +1,9 @@
 import argparse
 import filecmp
-from os.path import dirname, join, basename
-
 import glob
+from os.path import basename, dirname, join
+
+import pytest
 
 from deidentify.base import Annotation
 from deidentify.surrogates import rewrite_dataset
@@ -15,7 +16,6 @@ def test_apply_surrogates():
         Annotation('cc', start=4, end=6, tag='A'),
         Annotation('ccc', start=15, end=18, tag='B')
     ]
-
     surrogates = ['a', 'dd', 'bbbbb']
 
     surrogate_doc = rewrite_dataset.apply_surrogates(text, annotations, surrogates)
@@ -25,12 +25,72 @@ def test_apply_surrogates():
         Annotation('dd', start=2, end=4, tag='A'),
         Annotation('bbbbb', start=13, end=18, tag='B')
     ]
+    assert surrogate_doc.annotations_without_surrogates == []
 
 
 def test_apply_surrogates_no_annotations():
     surrogate_doc = rewrite_dataset.apply_surrogates('ccc cc ccc', annotations=[], surrogates=[])
     assert surrogate_doc.text == 'ccc cc ccc'
     assert surrogate_doc.annotations == []
+    assert surrogate_doc.annotations_without_surrogates == []
+
+
+def test_apply_surrogates_errors_raise():
+    text = 'ccc cc ccc'
+    annotations = [
+        Annotation('ccc', start=0, end=3, tag='A'),
+        Annotation('cc', start=4, end=6, tag='A'),
+        Annotation('ccc', start=7, end=10, tag='B')
+    ]
+    surrogates = ['a', None, 'b']
+
+    with pytest.raises(ValueError):
+        rewrite_dataset.apply_surrogates(text, annotations, surrogates)
+
+    with pytest.raises(ValueError):
+        rewrite_dataset.apply_surrogates(text, annotations, surrogates, errors='raise')
+
+
+def test_apply_surrogates_errors_skip():
+    text = 'ccc cc ccc'
+    annotations = [
+        Annotation('ccc', start=0, end=3, tag='A'),
+        Annotation('cc', start=4, end=6, tag='A'),
+        Annotation('ccc', start=7, end=10, tag='B')
+    ]
+    surrogates = ['a', None, 'b']
+
+    surrogate_doc = rewrite_dataset.apply_surrogates(text, annotations, surrogates, errors='skip')
+    assert surrogate_doc.text == 'a cc b'
+    assert surrogate_doc.annotations == [
+        Annotation('a', start=0, end=1, tag='A'),
+        Annotation('cc', start=2, end=4, tag='A'),
+        Annotation('b', start=5, end=6, tag='B')
+    ]
+    assert surrogate_doc.annotations_without_surrogates == [
+        Annotation('cc', start=4, end=6, tag='A'),
+    ]
+
+
+def test_apply_surrogates_errors_coerce():
+    text = 'ccc cc ccc'
+    annotations = [
+        Annotation('ccc', start=0, end=3, tag='A'),
+        Annotation('cc', start=4, end=6, tag='A'),
+        Annotation('ccc', start=7, end=10, tag='B')
+    ]
+    surrogates = ['a', None, 'b']
+
+    surrogate_doc = rewrite_dataset.apply_surrogates(text, annotations, surrogates, errors='coerce')
+    assert surrogate_doc.text == 'a [A] b'
+    assert surrogate_doc.annotations == [
+        Annotation('a', start=0, end=1, tag='A'),
+        Annotation('[A]', start=2, end=5, tag='A'),
+        Annotation('b', start=6, end=7, tag='B')
+    ]
+    assert surrogate_doc.annotations_without_surrogates == [
+        Annotation('cc', start=4, end=6, tag='A'),
+    ]
 
 
 def test_main(tmpdir):

@@ -11,7 +11,7 @@ from deidentify.base import Annotation, Document
 from deidentify.dataset.brat import load_brat_text, write_brat_document
 
 
-def apply_surrogates(text, annotations, surrogates):
+def apply_surrogates(text, annotations, surrogates, errors='raise'):
     adjusted_annotations = []
     # Amount of characters by which start point of annotation is adjusted
     # Positive shift if surrogates are longer than original annotations
@@ -21,7 +21,19 @@ def apply_surrogates(text, annotations, surrogates):
     original_text_pointer = 0
     text_rewritten = ''
 
+    failed_replacements = []
+
     for annotation, surrogate in zip(annotations, surrogates):
+        if not surrogate:
+            if errors == 'raise':
+                raise ValueError(f'No valid surrogate for {annotation}')
+
+            if errors == 'skip':
+                surrogate = annotation.text
+            elif errors == 'coerce':
+                surrogate = f'[{annotation.tag}]'
+            failed_replacements.append(annotation)
+
         part = text[original_text_pointer:annotation.start]
 
         start = annotation.start + shift
@@ -41,7 +53,9 @@ def apply_surrogates(text, annotations, surrogates):
         original_text_pointer = annotation.end
 
     text_rewritten += text[original_text_pointer:]
-    return Document(name='', text=text_rewritten, annotations=adjusted_annotations)
+    doc_rewritten = Document(name='', text=text_rewritten, annotations=adjusted_annotations)
+    doc_rewritten.annotations_without_surrogates = failed_replacements
+    return doc_rewritten
 
 
 def main(args):
