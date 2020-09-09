@@ -8,7 +8,7 @@ from deidentify.base import Annotation
 from deidentify.surrogates import rewrite_dataset
 
 
-def test_rewrite_text():
+def test_apply_surrogates():
     text = 'ccc cc ccc c c ccc cccccc cccc'
     annotations = [
         Annotation('ccc', start=0, end=3, tag='A'),
@@ -28,7 +28,7 @@ def test_rewrite_text():
     ]
 
 
-def test_rewrite_text_no_annotations():
+def test_apply_surrogates_no_annotations():
     result = rewrite_dataset.apply_surrogates('ccc cc ccc', annotations=[], surrogates=[])
     text_rewritten, adjusted_annotations = result
     assert text_rewritten == 'ccc cc ccc'
