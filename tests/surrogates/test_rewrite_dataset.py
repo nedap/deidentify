@@ -18,10 +18,9 @@ def test_apply_surrogates():
 
     surrogates = ['a', 'dd', 'bbbbb']
 
-    result = rewrite_dataset.apply_surrogates(text, annotations, surrogates)
-    text_rewritten, adjusted_annotations = result
-    assert text_rewritten == 'a dd ccc c c bbbbb cccccc cccc'
-    assert adjusted_annotations == [
+    surrogate_doc = rewrite_dataset.apply_surrogates(text, annotations, surrogates)
+    assert surrogate_doc.text == 'a dd ccc c c bbbbb cccccc cccc'
+    assert surrogate_doc.annotations == [
         Annotation('a', start=0, end=1, tag='A'),
         Annotation('dd', start=2, end=4, tag='A'),
         Annotation('bbbbb', start=13, end=18, tag='B')
@@ -29,10 +28,9 @@ def test_apply_surrogates():
 
 
 def test_apply_surrogates_no_annotations():
-    result = rewrite_dataset.apply_surrogates('ccc cc ccc', annotations=[], surrogates=[])
-    text_rewritten, adjusted_annotations = result
-    assert text_rewritten == 'ccc cc ccc'
-    assert adjusted_annotations == []
+    surrogate_doc = rewrite_dataset.apply_surrogates('ccc cc ccc', annotations=[], surrogates=[])
+    assert surrogate_doc.text == 'ccc cc ccc'
+    assert surrogate_doc.annotations == []
 
 
 def test_main(tmpdir):

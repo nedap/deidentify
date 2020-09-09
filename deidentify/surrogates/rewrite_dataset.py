@@ -7,7 +7,7 @@ from os.path import basename, join, splitext
 import pandas as pd
 from loguru import logger
 
-from deidentify.base import Annotation
+from deidentify.base import Annotation, Document
 from deidentify.dataset.brat import load_brat_text, write_brat_document
 
 
@@ -41,7 +41,7 @@ def apply_surrogates(text, annotations, surrogates):
         original_text_pointer = annotation.end
 
     text_rewritten += text[original_text_pointer:]
-    return text_rewritten, adjusted_annotations
+    return Document(name='', text=text_rewritten, annotations=adjusted_annotations)
 
 
 def main(args):
@@ -65,11 +65,13 @@ def main(args):
         ), axis=1)
 
         surrogates = rows.surrogate.values
-
-        text_rewritten, adjusted_annotations = apply_surrogates(text, annotations, surrogates)
-
-        write_brat_document(args.output_path, doc_id,
-                            text=text_rewritten, annotations=adjusted_annotations)
+        surrogate_doc = apply_surrogates(text, annotations, surrogates)
+        write_brat_document(
+            args.output_path,
+            doc_id,
+            text=surrogate_doc.text,
+            annotations=surrogate_doc.annotations
+        )
 
     files_with_annotations = set(df_surrogates.doc_id.values)
     all_files = [splitext(basename(f))[0] for f in glob.glob(join(args.data_path, '*.txt'))]

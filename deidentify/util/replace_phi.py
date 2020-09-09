@@ -67,5 +67,5 @@ def surrogate_annotations(docs: List[Document], seed=42) -> List[Document]:
 
     for doc in surrogate_docs:
         annotations, surrogates = doc.annotation_surrogate_pairs()
-        rewritten_text, rewritten_annotations = apply_surrogates(doc.text, annotations, surrogates)
-        yield Document(name='', text=rewritten_text, annotations=rewritten_annotations)
+        doc_rewritten = apply_surrogates(doc.text, annotations, surrogates)
+        yield doc_rewritten
