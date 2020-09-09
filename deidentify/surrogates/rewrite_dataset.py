@@ -17,7 +17,6 @@ def apply_surrogates(text, annotations, surrogates, errors='raise'):
     # Positive shift if surrogates are longer than original annotations
     # Negative shift if surrogates are shorter
     shift = 0
-
     original_text_pointer = 0
     text_rewritten = ''
 
@@ -27,7 +26,6 @@ def apply_surrogates(text, annotations, surrogates, errors='raise'):
         if not surrogate:
             if errors == 'raise':
                 raise ValueError(f'No valid surrogate for {annotation}')
-
             if errors == 'skip':
                 surrogate = annotation.text
             elif errors == 'coerce':
