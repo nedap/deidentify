@@ -58,7 +58,7 @@ def mask_annotations(document: Document,
     return Document(name=document.name, text=text_rewritten, annotations=annotations_rewritten)
 
 
-def surrogate_annotations(docs: List[Document], seed=42) -> List[Document]:
+def surrogate_annotations(docs: List[Document], seed=42, errors='raise') -> List[Document]:
     random_data = RandomData(seed=seed)
     dataset_deidentifier = DatasetDeidentifier(random_data=random_data)
 
@@ -67,5 +67,5 @@ def surrogate_annotations(docs: List[Document], seed=42) -> List[Document]:
 
     for doc in surrogate_docs:
         annotations, surrogates = doc.annotation_surrogate_pairs()
-        doc_rewritten = apply_surrogates(doc.text, annotations, surrogates)
+        doc_rewritten = apply_surrogates(doc.text, annotations, surrogates, errors=errors)
         yield doc_rewritten
