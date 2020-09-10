@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.6.0](https://github.com/nedap/deidentify/tree/v0.6.0) (2020-09-10)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.5.2...v0.6.0)
+
+**Merged pull requests:**
+
+- Add customizable error handling for PHI replacement [\#34](https://github.com/nedap/deidentify/pull/34) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.5.2](https://github.com/nedap/deidentify/tree/v0.5.2) (2020-09-07)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.5.1...v0.5.2)
