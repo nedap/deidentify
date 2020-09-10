@@ -7,21 +7,31 @@ from os.path import basename, join, splitext
 import pandas as pd
 from loguru import logger
 
-from deidentify.base import Annotation
+from deidentify.base import Annotation, Document
 from deidentify.dataset.brat import load_brat_text, write_brat_document
 
 
-def apply_surrogates(text, annotations, surrogates):
+def apply_surrogates(text, annotations, surrogates, errors='raise'):
     adjusted_annotations = []
     # Amount of characters by which start point of annotation is adjusted
     # Positive shift if surrogates are longer than original annotations
     # Negative shift if surrogates are shorter
     shift = 0
-
     original_text_pointer = 0
     text_rewritten = ''
 
+    failed_replacements = []
+
     for annotation, surrogate in zip(annotations, surrogates):
+        if not surrogate:
+            if errors == 'raise':
+                raise ValueError(f'No valid surrogate for {annotation}')
+            if errors == 'ignore':
+                surrogate = annotation.text
+            elif errors == 'coerce':
+                surrogate = f'[{annotation.tag}]'
+            failed_replacements.append(annotation)
+
         part = text[original_text_pointer:annotation.start]
 
         start = annotation.start + shift
@@ -41,7 +51,9 @@ def apply_surrogates(text, annotations, surrogates):
         original_text_pointer = annotation.end
 
     text_rewritten += text[original_text_pointer:]
-    return text_rewritten, adjusted_annotations
+    doc_rewritten = Document(name='', text=text_rewritten, annotations=adjusted_annotations)
+    doc_rewritten.annotations_without_surrogates = failed_replacements
+    return doc_rewritten
 
 
 def main(args):
@@ -65,11 +77,13 @@ def main(args):
         ), axis=1)
 
         surrogates = rows.surrogate.values
-
-        text_rewritten, adjusted_annotations = apply_surrogates(text, annotations, surrogates)
-
-        write_brat_document(args.output_path, doc_id,
-                            text=text_rewritten, annotations=adjusted_annotations)
+        surrogate_doc = apply_surrogates(text, annotations, surrogates)
+        write_brat_document(
+            args.output_path,
+            doc_id,
+            text=surrogate_doc.text,
+            annotations=surrogate_doc.annotations
+        )
 
     files_with_annotations = set(df_surrogates.doc_id.values)
     all_files = [splitext(basename(f))[0] for f in glob.glob(join(args.data_path, '*.txt'))]

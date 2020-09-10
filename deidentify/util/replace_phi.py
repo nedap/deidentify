@@ -58,7 +58,28 @@ def mask_annotations(document: Document,
     return Document(name=document.name, text=text_rewritten, annotations=annotations_rewritten)
 
 
-def surrogate_annotations(docs: List[Document], seed=42) -> List[Document]:
+def surrogate_annotations(docs: List[Document], seed=42, errors='raise') -> List[Document]:
+    """Replaces PHI annotations in documents with random surrogates.
+
+    Parameters
+    ----------
+    seed : int
+        Set this seed to make the random generation deterministic.
+    errors : str {'ignore', 'raise', 'coerce'}, default 'raise'
+        - If 'raise',  errors during surrogate generation will raise an exception.
+        - If 'ignore', failing annotations are skipped (they and PHI remains in text)
+        - If 'coerce', failing annotations are replaced with pattern `[annotation.tag]`
+
+    Returns
+    -------
+    List[Document]
+        A copy of `docs` with with text and annotations rewritten to their surrogates.
+
+        If errors is 'ignore' or 'coerce', an extra property of type List is added to the returned
+        documents (`Document.annotations_without_surrogates`), which includes annotations of the
+        *input document* that could not be replaced with a surrogate.
+
+    """
     random_data = RandomData(seed=seed)
     dataset_deidentifier = DatasetDeidentifier(random_data=random_data)
 
@@ -67,5 +88,5 @@ def surrogate_annotations(docs: List[Document], seed=42) -> List[Document]:
 
     for doc in surrogate_docs:
         annotations, surrogates = doc.annotation_surrogate_pairs()
-        rewritten_text, rewritten_annotations = apply_surrogates(doc.text, annotations, surrogates)
-        yield Document(name='', text=rewritten_text, annotations=rewritten_annotations)
+        doc_rewritten = apply_surrogates(doc.text, annotations, surrogates, errors=errors)
+        yield doc_rewritten

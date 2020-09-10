@@ -1,5 +1,7 @@
 import re
 
+import pytest
+
 from deidentify.base import Annotation, Document
 from deidentify.util import mask_annotations, surrogate_annotations
 
@@ -36,6 +38,54 @@ def test_surrogate_annotations():
 
     assert len(surrogate_doc.annotations) == len(doc.annotations)
     assert re.match(r'De patient .* \(e: .*, t: .*\)', doc.text)
+    assert not surrogate_doc.annotations_without_surrogates
 
     for ann in surrogate_doc.annotations:
         assert surrogate_doc.text[ann.start:ann.end] == ann.text
+
+
+def test_surrogate_annotations_errors_raise():
+    doc = Document(
+        name='test_doc',
+        text='This document was written on INVALID_DATE.',
+        annotations=[
+            Annotation(text='INVALID_DATE', start=29, end=41, tag='Date', doc_id='', ann_id='T0')
+        ]
+    )
+
+    with pytest.raises(ValueError, match=r'No valid surrogate for Annotation\(.*INVALID_DATE.*\)'):
+        _ = list(surrogate_annotations([doc]))[0]
+
+
+def test_surrogate_annotations_errors_ignore():
+    original_doc = Document(
+        name='test_doc',
+        text='This document was written on INVALID_DATE.',
+        annotations=[
+            Annotation(text='INVALID_DATE', start=29, end=41, tag='Date', doc_id='', ann_id='T0')
+        ]
+    )
+
+    gen = surrogate_annotations([original_doc], errors='ignore')
+    surrogate_doc = list(gen)[0]
+    assert surrogate_doc.text == original_doc.text
+    assert surrogate_doc.annotations == original_doc.annotations
+    assert surrogate_doc.annotations_without_surrogates == original_doc.annotations
+
+
+def test_surrogate_annotations_errors_coerce():
+    original_doc = Document(
+        name='test_doc',
+        text='This document was written on INVALID_DATE.',
+        annotations=[
+            Annotation(text='INVALID_DATE', start=29, end=41, tag='Date', doc_id='', ann_id='T0')
+        ]
+    )
+
+    gen = surrogate_annotations([original_doc], errors='coerce')
+    surrogate_doc = list(gen)[0]
+    assert surrogate_doc.text == 'This document was written on [Date].'
+    assert surrogate_doc.annotations == [
+        Annotation(text='[Date]', start=29, end=35, tag='Date', doc_id='', ann_id='T0')
+    ]
+    assert surrogate_doc.annotations_without_surrogates == original_doc.annotations
