@@ -266,7 +266,7 @@ class NameSurrogates(SurrogateGenerator):
     def strict_replace(part, replacement, whole):
         # initials may end on ., so matching on a word boundary \b is insufficient.
         # If we match on \W, we need to re-insert this in the substitute.
-        fmt = r'\b(?:{})(\W|\b)'.format(part)
+        fmt = r'\b(?:{})(\W|\b)'.format(re.escape(part))
         return re.sub(fmt, replacement + r'\1', whole)
 
     def _replace_name(self, annotation, firstname_mapping, lastname_mapping):
