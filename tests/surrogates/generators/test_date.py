@@ -17,6 +17,7 @@ def test_infer_format():
     assert infer_format('23 feb.').format == '%d %b.'
     assert infer_format('01 01 2015').format == '%d %m %Y'
     assert infer_format('22/05/13').format == '%d/%m/%y'
+    assert infer_format('0411').format == '%Y'
 
 
 

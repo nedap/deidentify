@@ -191,14 +191,21 @@ class DateSurrogates(SurrogateGenerator):
             most_recent = self.dates[0]
 
         for date in self.dates:
-            # TODO: Add an annotation object that encapsules automatic replacement errors
             if isinstance(date, NullDate):
+                # TODO: Add an annotation object that encapsules automatic replacement errors
                 replaced.append(None)
                 continue
 
             adjusted = adjust_long_date_span(date, most_recent=most_recent, max_delta=89)
             delta = relativedelta(days=self.day_shift, years=self.year_shift)
-            shifted_date = shift_date(adjusted, delta)
-            replaced.append(shifted_date.date_string)
+
+            try:
+                shifted_date = shift_date(adjusted, delta)
+                replaced.append(shifted_date.date_string)
+            except ValueError:
+                # The implementation of shift_date may fail in platform-specific implementations
+                # where strftime and strptime are not symmetric.
+                # See: https://bugs.python.org/issue32195
+                replaced.append(None)
 
         return replaced
