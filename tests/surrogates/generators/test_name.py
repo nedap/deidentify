@@ -142,6 +142,15 @@ def test_normalize_name():
     assert name.middle == ''
     assert name.last == 'de Groot'
 
+    # This is a malformatted name where parsing fails. We shold still handle it gracefully.
+    name = normalize_name('Ludo)Enckels')
+    assert name.first == 'Ludo)Enckels'
+
+def test_strict_replace():
+    sp = NameSurrogates.strict_replace
+    assert sp(part='Jan', replacement='Peter', whole='van Janssen, Jan') == 'van Janssen, Peter'
+    assert sp(part='Ludo)Enckels', replacement='Peter', whole='Ludo)Enckels') == 'Peter'
+
 
 def test_surrogate_firstname():
     name_surrogates = NameSurrogates(annotations=[],
