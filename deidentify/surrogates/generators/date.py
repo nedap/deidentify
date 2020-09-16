@@ -199,10 +199,9 @@ class DateSurrogates(SurrogateGenerator):
                 replaced.append(None)
                 continue
 
-            adjusted = adjust_long_date_span(date, most_recent=most_recent, max_delta=89)
-            delta = relativedelta(days=self.day_shift, years=self.year_shift)
-
             try:
+                adjusted = adjust_long_date_span(date, most_recent=most_recent, max_delta=89)
+                delta = relativedelta(days=self.day_shift, years=self.year_shift)
                 shifted_date = shift_date(adjusted, delta)
                 replaced.append(shifted_date.date_string)
             except ValueError:
