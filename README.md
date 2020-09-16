@@ -160,7 +160,7 @@ We provide a number of pre-trained models for the Dutch language. The models wer
 | [model_bilstmcrf_ons_fast-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) | `FlairTagger`  | Dutch | NUT | 0.9461 | 0.9591 | 0.9335 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) |
 | [model_bilstmcrf_ons_large-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) | `FlairTagger` | Dutch | NUT | 0.9505 | 0.9683 | 0.9333 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) |
 
-*\*All scores are micro-averaged, blind token-level precision/recall/F1 obtained on the test portion of each dataset. For additional metrics, see the corresponding model release.*
+*\*All scores are token-level (tag-blind) precision/recall/F1 obtained on the test portion of each dataset. For additional metrics, see the corresponding model release.*
 
 *\*\*DEDUCE was developed on a dataset of psychiatric nursing notes and treatment plans. The numbers reported here were obtained by applying DEDUCE to our NUT dataset. For more information on the development of DEDUCE, see the paper by [Menger et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365).*
 
