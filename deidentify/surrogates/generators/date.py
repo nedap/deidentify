@@ -124,7 +124,9 @@ def shift_date(date, delta):
 
 
 def adjust_long_date_span(date, most_recent, max_delta):
-    if relativedelta(most_recent.datetime, date.datetime).years > max_delta:
+    dt_a = most_recent.datetime.replace(tzinfo=None)
+    dt_b = date.datetime.replace(tzinfo=None)
+    if relativedelta(dt_a, dt_b).years > max_delta:
         span = year_span(date, most_recent)
         delta = relativedelta(years=span - max_delta)
         return shift_date(date, delta)
