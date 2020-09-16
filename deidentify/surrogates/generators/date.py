@@ -171,7 +171,10 @@ class DateSurrogates(SurrogateGenerator):
         for date in dates:
             try:
                 parsed.append(infer_format(date))
-            except (ValueError, re.error):
+            except (ValueError, re.error, NotImplementedError):
+                # NotImplementedError is raised because of a bug in pydateinfer.
+                # WeekdayLong does not implement the abstract `is_numerical` method.
+                # See: https://github.com/dimagalat/dateinfer/blob/8d34303a94597fa9e560dfa564a4d5f74f3cab76/pydateinfer/date_elements.py#L255
                 dates_failed.append(date)
                 parsed.append(NullDate())
 
