@@ -18,7 +18,9 @@ def test_infer_format():
     assert infer_format('01 01 2015').format == '%d %m %Y'
     assert infer_format('22/05/13').format == '%d/%m/%y'
     assert infer_format('0411').format == '%Y'
-
+    # Odd edge case which results into a parsing including timezone information.
+    # This should be handled gracefully.
+    assert infer_format('15-34-2019').format == '%H-%M%z'
 
 
 def test_infer_format_multiple_languages():
@@ -139,6 +141,12 @@ def test_adjust_long_date_span():
     for given, expected in zip(dates_given, dates_expected):
         shifted = adjust_long_date_span(given, most_recent=most_recent, max_delta=90)
         assert shifted == expected
+
+
+def test_adjust_long_date_span_disregard_timezones():
+    dt_aware = Date('15-34-2019', '%H-%M%z')
+    dt_unaware = Date('ma', '%a', date_locale='nl_NL.UTF-8')
+    assert adjust_long_date_span(dt_unaware, most_recent=dt_aware, max_delta=90) == dt_unaware
 
 
 def test_adjust_long_date_span_preserves_locale():

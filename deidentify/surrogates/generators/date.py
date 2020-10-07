@@ -124,7 +124,9 @@ def shift_date(date, delta):
 
 
 def adjust_long_date_span(date, most_recent, max_delta):
-    if relativedelta(most_recent.datetime, date.datetime).years > max_delta:
+    dt_a = most_recent.datetime.replace(tzinfo=None)
+    dt_b = date.datetime.replace(tzinfo=None)
+    if relativedelta(dt_a, dt_b).years > max_delta:
         span = year_span(date, most_recent)
         delta = relativedelta(years=span - max_delta)
         return shift_date(date, delta)
@@ -171,7 +173,10 @@ class DateSurrogates(SurrogateGenerator):
         for date in dates:
             try:
                 parsed.append(infer_format(date))
-            except (ValueError, re.error):
+            except (ValueError, re.error, NotImplementedError):
+                # NotImplementedError is raised because of a bug in pydateinfer.
+                # WeekdayLong does not implement the abstract `is_numerical` method.
+                # See: https://github.com/dimagalat/dateinfer/blob/8d34303a94597fa9e560dfa564a4d5f74f3cab76/pydateinfer/date_elements.py#L255
                 dates_failed.append(date)
                 parsed.append(NullDate())
 
@@ -196,10 +201,9 @@ class DateSurrogates(SurrogateGenerator):
                 replaced.append(None)
                 continue
 
-            adjusted = adjust_long_date_span(date, most_recent=most_recent, max_delta=89)
-            delta = relativedelta(days=self.day_shift, years=self.year_shift)
-
             try:
+                adjusted = adjust_long_date_span(date, most_recent=most_recent, max_delta=89)
+                delta = relativedelta(days=self.day_shift, years=self.year_shift)
                 shifted_date = shift_date(adjusted, delta)
                 replaced.append(shifted_date.date_string)
             except ValueError:
