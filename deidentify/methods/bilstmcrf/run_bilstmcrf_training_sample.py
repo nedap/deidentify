@@ -6,9 +6,9 @@ from flair.trainers import ModelTrainer
 from loguru import logger
 from numpy.random import RandomState
 
-from deidentify.methods import train_utils
 from deidentify.dataset.corpus_loader import CORPUS_PATH, CorpusLoader
 from deidentify.evaluation.evaluator import Evaluator
+from deidentify.methods import train_utils
 from deidentify.methods.bilstmcrf import flair_utils, run_bilstmcrf
 from deidentify.tokenizer import TokenizerFactory
 
@@ -58,7 +58,7 @@ def main(args, model_dir):
                   max_epochs=150,
                   monitor_train=False,
                   train_with_dev=True,
-                  save_final_model=False)
+                  save_final_model=args.save_final_model)
 
     logger.info('Make predictions...')
     run_bilstmcrf.make_predictions(tagger, flair_corpus)
@@ -87,6 +87,9 @@ def arg_parser():
                         help="Seed for the training set sampler.",
                         type=int,
                         default=42)
+    parser.add_argument("--save_final_model",
+                        help="If passed, the final model is saved.",
+                        action='store_true')
     return parser.parse_args()
 
 
