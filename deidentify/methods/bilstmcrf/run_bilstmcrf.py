@@ -37,10 +37,10 @@ def make_predictions(tagger, filtered_corpus: flair_utils.FilteredCorpus):
     _predict_ignored(filtered_corpus.test_ignored)
 
 
-def get_embeddings(corpus_name: str, pooled: bool,
+def get_embeddings(corpus_name: str, lang:str, pooled: bool,
                    contextual_forward_path: str = None,
                    contextual_backward_path: str = None) -> List[TokenEmbeddings]:
-    if corpus_name.startswith('ons'):
+    if corpus_name.startswith('ons') or lang=='nl':
         logger.info('Use Dutch embeddings')
         word_embeddings = 'nl'
         contextual_forward = 'nl-forward'
@@ -74,6 +74,7 @@ def get_embeddings(corpus_name: str, pooled: bool,
 
 def get_model(corpus: flair.data.Corpus,
               corpus_name: str,
+              lang: str,
               pooled_contextual_embeddings: bool,
               contextual_forward_path: str = None,
               contextual_backward_path: str = None):
@@ -82,6 +83,7 @@ def get_model(corpus: flair.data.Corpus,
 
     embedding_types: List[TokenEmbeddings] = get_embeddings(
         corpus_name=corpus_name,
+        lang = lang,
         pooled=pooled_contextual_embeddings,
         contextual_forward_path=contextual_forward_path,
         contextual_backward_path=contextual_backward_path
@@ -118,12 +120,20 @@ def main(args):
     logger.info(flair_corpus)
 
     if not args.model_file:
-        logger.info('Train model...')
-        tagger = get_model(flair_corpus,
-                           corpus_name=args.corpus,
-                           pooled_contextual_embeddings=args.pooled_contextual_embeddings,
-                           contextual_forward_path=args.contextual_forward_path,
-                           contextual_backward_path=args.contextual_backward_path)
+        if args.continue_training:
+        # load existing model and fine-tune on new data with given params
+            logger.info('Load existing model from {}'.format(args.continue_training))
+            tagger = SequenceTagger.load(args.continue_training)
+            logger.info('Fine-tune model ...')
+        else:
+        # train model from scratch
+            logger.info('Train model...')
+            tagger = get_model(flair_corpus,
+                               corpus_name=args.corpus,
+                               lang=args.corpus_lang,
+                               pooled_contextual_embeddings=args.pooled_contextual_embeddings,
+                               contextual_forward_path=args.contextual_forward_path,
+                               contextual_backward_path=args.contextual_backward_path)
 
         trainer = ModelTrainer(tagger, flair_corpus)
         trainer.train(join(model_dir, 'flair'),
@@ -166,6 +176,11 @@ def arg_parser():
                         help="Path to contextual string embeddings (forward)")
     parser.add_argument("--contextual_backward_path",
                         help="Path to contextual string embeddings (backward)")
+    parser.add_argument("--corpus_lang",
+                        choices = ['en','nl'],
+                        help="Specify language of embeddings.")
+    parser.add_argument("--continue_training",
+                       help="Path to pretrained model to fine-tune.")
     return parser.parse_args()
 
 
