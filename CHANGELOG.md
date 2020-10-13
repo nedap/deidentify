@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.6.1](https://github.com/nedap/deidentify/tree/v0.6.1) (2020-10-13)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.6.0...v0.6.1)
+
+**Closed issues:**
+
+- English model and Re-train [\#33](https://github.com/nedap/deidentify/issues/33)
+
+**Merged pull requests:**
+
+- Correctly handle whitespace in BIO to standoff conversion [\#39](https://github.com/nedap/deidentify/pull/39) ([jantrienes](https://github.com/jantrienes))
+- Add flag to save final BiLSTM-CRF model when training on a train-subset [\#38](https://github.com/nedap/deidentify/pull/38) ([jantrienes](https://github.com/jantrienes))
+- Expand scope of error handling in date parsing [\#37](https://github.com/nedap/deidentify/pull/37) ([jantrienes](https://github.com/jantrienes))
+- Escape regex parameters during name replacements [\#36](https://github.com/nedap/deidentify/pull/36) ([jantrienes](https://github.com/jantrienes))
+- Handle platform-specific issue with strftime/strptime [\#35](https://github.com/nedap/deidentify/pull/35) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.6.0](https://github.com/nedap/deidentify/tree/v0.6.0) (2020-09-10)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.5.2...v0.6.0)
@@ -59,7 +75,6 @@
 
 **Merged pull requests:**
 
-- Fix BiLSTM-CRF with consecutive whitespace tokens [\#20](https://github.com/nedap/deidentify/pull/20) ([jantrienes](https://github.com/jantrienes))
 - Pin torch version in environment.yml [\#19](https://github.com/nedap/deidentify/pull/19) ([jantrienes](https://github.com/jantrienes))
 - Add efficiency benchmark [\#18](https://github.com/nedap/deidentify/pull/18) ([jantrienes](https://github.com/jantrienes))
 - Add requirements-dev.txt to list explicit dev requirements [\#17](https://github.com/nedap/deidentify/pull/17) ([jantrienes](https://github.com/jantrienes))
@@ -81,6 +96,7 @@
 
 **Merged pull requests:**
 
+- Fix BiLSTM-CRF with consecutive whitespace tokens [\#20](https://github.com/nedap/deidentify/pull/20) ([jantrienes](https://github.com/jantrienes))
 - Add bound on torch version [\#10](https://github.com/nedap/deidentify/pull/10) ([jantrienes](https://github.com/jantrienes))
 
 ## [v0.3.0](https://github.com/nedap/deidentify/tree/v0.3.0) (2020-01-16)
