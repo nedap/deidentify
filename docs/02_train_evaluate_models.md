@@ -9,7 +9,7 @@ All training scripts are located under `deidentify/methods/` and are prefixed wi
 Each script takes a set of arguments that you can print as follows:
 
 ```sh
-python deidentify/methods/run_bilstmcrf.py --help
+python deidentify/methods/bilstmcrf/run_bilstmcrf.py --help
 ```
 
 Below is a list of available scripts:
