@@ -79,7 +79,11 @@ def flair_sents_to_standoff(tagged_flair_sentences: List[Sentence],
 
     sentence_tags = []
     for sent in tagged_flair_sentences:
-        sentence_tags.append([token.get_tag('ner').value for token in sent])
+        sentence_tags.append([
+            # We introduced special space tokens in `standoff_to_flair_sents`.
+            # If the model erreonously tagged those, we swap the label to O.
+            token.get_tag('ner').value if token.text != '<SPACE>' else 'O' for token in sent
+        ])
 
     return sents_to_standoff(sentence_tags, docs)
 
