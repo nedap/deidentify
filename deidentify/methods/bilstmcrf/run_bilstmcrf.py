@@ -126,6 +126,7 @@ def main(args):
         logger.info('Load existing model from {}'.format(args.model_file))
         tagger = SequenceTagger.load(args.model_file)
     else:
+        logger.info('Train model...')
         tagger = get_model(
             flair_corpus,
             corpus_name=args.corpus,
