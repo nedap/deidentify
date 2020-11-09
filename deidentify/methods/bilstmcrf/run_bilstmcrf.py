@@ -5,14 +5,15 @@ from os.path import join
 from typing import List
 
 import flair.data
-from flair.embeddings import (FlairEmbeddings, PooledFlairEmbeddings, StackedEmbeddings,
-                              TokenEmbeddings, WordEmbeddings)
+from flair.embeddings import (FlairEmbeddings, PooledFlairEmbeddings,
+                              StackedEmbeddings, TokenEmbeddings,
+                              WordEmbeddings)
 from flair.models import SequenceTagger
 from flair.trainers import ModelTrainer
 from loguru import logger
 
-from deidentify.methods import train_utils
 from deidentify.dataset.corpus_loader import CORPUS_PATH, CorpusLoader
+from deidentify.methods import train_utils
 from deidentify.methods.bilstmcrf import flair_utils
 from deidentify.tokenizer import TokenizerFactory
 
@@ -37,10 +38,12 @@ def make_predictions(tagger, filtered_corpus: flair_utils.FilteredCorpus):
     _predict_ignored(filtered_corpus.test_ignored)
 
 
-def get_embeddings(corpus_name: str, pooled: bool,
+def get_embeddings(corpus_name: str,
+                   language: str,
+                   pooled: bool,
                    contextual_forward_path: str = None,
                    contextual_backward_path: str = None) -> List[TokenEmbeddings]:
-    if corpus_name.startswith('ons'):
+    if corpus_name.startswith('ons') or language == 'nl':
         logger.info('Use Dutch embeddings')
         word_embeddings = 'nl'
         contextual_forward = 'nl-forward'
@@ -74,6 +77,7 @@ def get_embeddings(corpus_name: str, pooled: bool,
 
 def get_model(corpus: flair.data.Corpus,
               corpus_name: str,
+              embedding_lang: str,
               pooled_contextual_embeddings: bool,
               contextual_forward_path: str = None,
               contextual_backward_path: str = None):
@@ -82,6 +86,7 @@ def get_model(corpus: flair.data.Corpus,
 
     embedding_types: List[TokenEmbeddings] = get_embeddings(
         corpus_name=corpus_name,
+        language=embedding_lang,
         pooled=pooled_contextual_embeddings,
         contextual_forward_path=contextual_forward_path,
         contextual_backward_path=contextual_backward_path
@@ -117,14 +122,21 @@ def main(args):
                                               ignore_sentence=_ignore_sentence)
     logger.info(flair_corpus)
 
-    if not args.model_file:
+    if args.model_file:
+        logger.info('Load existing model from {}'.format(args.model_file))
+        tagger = SequenceTagger.load(args.model_file)
+    else:
         logger.info('Train model...')
-        tagger = get_model(flair_corpus,
-                           corpus_name=args.corpus,
-                           pooled_contextual_embeddings=args.pooled_contextual_embeddings,
-                           contextual_forward_path=args.contextual_forward_path,
-                           contextual_backward_path=args.contextual_backward_path)
+        tagger = get_model(
+            flair_corpus,
+            corpus_name=args.corpus,
+            embedding_lang=args.embedding_lang,
+            pooled_contextual_embeddings=args.pooled_contextual_embeddings,
+            contextual_forward_path=args.contextual_forward_path,
+            contextual_backward_path=args.contextual_backward_path
+        )
 
+    if args.fine_tune or not args.model_file:
         trainer = ModelTrainer(tagger, flair_corpus)
         trainer.train(join(model_dir, 'flair'),
                       max_epochs=150,
@@ -139,17 +151,14 @@ def main(args):
             # Training is stopped if train loss converges - here, we do not have a "best model" and
             # use the final model to make predictions.
             pass
-    else:
-        logger.info('Load existing model from {}'.format(args.model_file))
-        tagger = SequenceTagger.load(args.model_file)
 
     logger.info('Make predictions...')
     make_predictions(tagger, flair_corpus)
 
     train_utils.save_predictions(corpus_name=corpus.name, run_id=args.run_id,
-                                train=flair_utils.flair_sents_to_standoff(train_sents, train_docs),
-                                dev=flair_utils.flair_sents_to_standoff(dev_sents, dev_docs),
-                                test=flair_utils.flair_sents_to_standoff(test_sents, test_docs))
+                                 train=flair_utils.flair_sents_to_standoff(train_sents, train_docs),
+                                 dev=flair_utils.flair_sents_to_standoff(dev_sents, dev_docs),
+                                 test=flair_utils.flair_sents_to_standoff(test_sents, test_docs))
 
 
 def arg_parser():
@@ -166,6 +175,12 @@ def arg_parser():
                         help="Path to contextual string embeddings (forward)")
     parser.add_argument("--contextual_backward_path",
                         help="Path to contextual string embeddings (backward)")
+    parser.add_argument("--embedding_lang",
+                        choices=['en', 'nl'],
+                        help="Specify language of embeddings.")
+    parser.add_argument("--fine_tune",
+                        help="Fine tune an existing model (has to be passed with --model_file)",
+                        action='store_true')
     return parser.parse_args()
 
 
