@@ -51,7 +51,7 @@ def main(args, model_dir):
     logger.info('Train model...')
     tagger = run_bilstmcrf.get_model(flair_corpus,
                                      corpus_name=args.corpus,
-                                     lang=args.corpus_lang,
+                                     embedding_lang=args.embedding_lang,
                                      pooled_contextual_embeddings=True)
 
     trainer = ModelTrainer(tagger, flair_corpus)
@@ -91,7 +91,7 @@ def arg_parser():
     parser.add_argument("--save_final_model",
                         help="If passed, the final model is saved.",
                         action='store_true')
-    parser.add_argument("--corpus_lang",
+    parser.add_argument("--embedding_lang",
                 choices = ['en','nl'],
                 help="Specify language of embeddings.")
     return parser.parse_args()
