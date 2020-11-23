@@ -1,4 +1,5 @@
-from deidentify.methods.crf.crf_labeler import (Token, collapse_word_shape,
+from deidentify.methods.crf.crf_labeler import (SentenceFilterCRF, Token,
+                                                collapse_word_shape,
                                                 has_unmatched_bracket,
                                                 list_window,
                                                 liu_feature_extractor, ngrams,
@@ -126,6 +127,40 @@ def test_liu_feature_extractor():
         'shape.long': 'Aaaaaa',
         'shape.short': 'Aa',
     }
+
+
+def test_crf_labeler_marginals():
+    sent1_features = [{'feat1': True, 'feat2': False}] * 4  # sentence will be ignored (see below)
+    sent1_labels = ['O', 'B-Name', 'O', 'O']
+    sent2_features = [{'feat1': False, 'feat2': True}] * 3
+    sent2_labels = ['B-Date', 'I-Date', 'O']
+
+    def ignore_sent(sent):
+        return sent[0]['feat1'] == True
+
+    X = [sent1_features, sent2_features]
+    y = [sent1_labels, sent2_labels]
+    crf = SentenceFilterCRF(ignored_label='O', ignore_sentence=ignore_sent)
+    crf.fit(X, y)
+
+    assert set(crf.classes_) == set(['O', 'B-Date', 'I-Date'])
+
+    y_pred = crf.predict_marginals([sent1_features, sent2_features])
+    # Should have two sentences
+    assert len(y_pred) == 2
+    assert len(y_pred[0]) == len(sent1_features), "Number of marginals should match len tokens"
+    assert len(y_pred[1]) == len(sent2_features), "Number of marginals should match len tokens"
+
+    # all tokens should have marginals for all classes
+    for sent in y_pred:
+        for token in sent:
+            assert set(token.keys()) == set(crf.classes_)
+
+    # First sentence (ignored) should marginal=1 for the ignored_label.
+    ignored_marginals = {'O': 1, 'B-Date': 0, 'I-Date': 0}
+    assert y_pred[0] == [ignored_marginals] * 4
+    # Second sentence should have non-zero marginals for the other classes
+    assert y_pred[1] != [ignored_marginals] * 3
 
 
 if __name__ == '__main__':
