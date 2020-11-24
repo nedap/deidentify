@@ -172,7 +172,9 @@ class SentenceFilterCRF(sklearn_crfsuite.CRF):
 
     def predict_marginals_single(self, xseq):
         if self.ignore_sentence(xseq):
-            return [1] * len(xseq)
+            ignored_marginals = {c: 0 for c in self.classes_}
+            ignored_marginals[self.ignored_label] = 1
+            return [ignored_marginals] * len(xseq)
 
         return super().predict_marginals_single(xseq)
 
