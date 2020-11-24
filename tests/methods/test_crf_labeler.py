@@ -64,9 +64,6 @@ def test_liu_feature_extractor():
         Token(text=')', pos_tag='PUNCT', label='O', ner_tag=None),
     ]
 
-    # from pprint import pprint
-    # pprint(liu_feature_extractor(sentence, 2))
-
     assert liu_feature_extractor(sentence, 2) == {
         'bow[-2:2].uni.0': 'de',
         'bow[-2:2].uni.1': 'patient',
@@ -161,7 +158,3 @@ def test_crf_labeler_marginals():
     assert y_pred[0] == [ignored_marginals] * 4
     # Second sentence should have non-zero marginals for the other classes
     assert y_pred[1] != [ignored_marginals] * 3
-
-
-if __name__ == '__main__':
-    test_liu_feature_extractor()
