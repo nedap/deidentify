@@ -32,3 +32,17 @@ def test_sentence_segmentation():
     assert [token.text for token in sents[1]] == ['Dit', 'is', 'een', 'zin', '.', '\n']
     assert [token.text for token in sents[2]] == ['=== Report: 1234 ===\n']
     assert [token.text for token in sents[3]] == ['Mw.', 'heeft', 'goed', 'gegeten', '.']
+
+
+def test_infix_split_on_parenthesis():
+    text = 'GRZ(12-12-2020).'
+    doc = tokenizer.parse_text(text)
+    tokens = [t.text for t in doc]
+    assert tokens == 'GRZ ( 12-12-2020 ) .'.split()
+
+
+def test_infix_split_on_forward_slash():
+    text = 'Groot/Kempers'
+    doc = tokenizer.parse_text(text)
+    tokens = [t.text for t in doc]
+    assert tokens == 'Groot / Kempers'.split()
