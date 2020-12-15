@@ -2,7 +2,6 @@ from collections import namedtuple
 from typing import List
 
 import numpy as np
-import spacy
 from loguru import logger
 from sklearn.metrics import confusion_matrix
 from spacy.gold import biluo_tags_from_offsets
@@ -20,25 +19,23 @@ def flatten(lists):
 
 class Evaluator:
 
-    def __init__(self, gold: List[Document], predicted: List[Document], language='nl',
-                 tokenizer=None):
+    def __init__(self, gold: List[Document], predicted: List[Document], language='nl'):
         self.gold = gold
         self.predicted = predicted
 
         self.tags = sorted(list(set(ann.tag for doc in gold for ann in doc.annotations)))
 
-        if tokenizer:
-            self.tokenize = tokenizer
-        else:
-            if language not in self.supported_languages():
-                logger.warning(
-                    'Unknown language {} for evaluation. Fallback to "en"'.format(language))
-                language = 'en'
+        if language not in self.supported_languages():
+            logger.warning(
+                'Unknown language {} for evaluation. Fallback to "en"'.format(language))
+            language = 'en'
 
-            if language == 'nl':
-                self.tokenize = spacy.load('nl_core_news_sm')
-            else:
-                self.tokenize = spacy.load('en_core_web_sm')
+        if language == 'nl':
+            from deidentify.tokenizer.tokenizer_ons import TokenizerOns
+            self.tokenizer = TokenizerOns(disable=('tagger', 'parser', 'ner'))
+        else:
+            from deidentify.tokenizer.tokenizer_en import TokenizerEN
+            self.tokenizer = TokenizerEN(disable=('tagger', 'parser', 'ner'))
 
     @staticmethod
     def supported_languages():
@@ -108,7 +105,7 @@ class Evaluator:
         return metric
 
     def token_annotations(self, doc, tag_blind=False, entity_tag=ENTITY_TAG):
-        parsed = self.tokenize(doc.text, disable=("tagger", "parser", "ner"))
+        parsed = self.tokenizer.parse_text(doc.text)
         entities = [(int(ann.start), int(ann.end), ann.tag) for ann in doc.annotations]
         biluo_tags = biluo_tags_from_offsets(parsed, entities)
 
