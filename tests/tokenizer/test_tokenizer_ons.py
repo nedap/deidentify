@@ -46,3 +46,10 @@ def test_infix_split_on_forward_slash():
     doc = tokenizer.parse_text(text)
     tokens = [t.text for t in doc]
     assert tokens == 'Groot / Kempers'.split()
+
+
+def test_infix_split_on_forward_slash_exclude_dates():
+    text = '13/01/2020'
+    doc = tokenizer.parse_text(text)
+    tokens = [t.text for t in doc]
+    assert tokens == ['13/01/2020']

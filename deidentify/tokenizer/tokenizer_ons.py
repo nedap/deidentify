@@ -75,7 +75,7 @@ for case in TOKENIZER_SPECIAL_CASES:
     NLP.tokenizer.add_special_case(case.lower(), [{ORTH: case.lower()}])
 
 
-infixes = NLP.Defaults.infixes + [r'\(', r'\)', r'/']
+infixes = NLP.Defaults.infixes + [r'\(', r'\)', r'(?<=[\D])\/(?=[\D])']
 infix_regex = spacy.util.compile_infix_regex(infixes)
 NLP.tokenizer.infix_finditer = infix_regex.finditer
 
