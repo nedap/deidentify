@@ -1,3 +1,4 @@
+import warnings
 from collections import namedtuple
 from typing import List
 
@@ -12,6 +13,10 @@ from deidentify.evaluation.metric import Metric
 Entity = namedtuple('Entity', ['doc_name', 'start', 'end', 'tag'])
 ENTITY_TAG = 'ENT'
 
+# Silence spaCy warning regarding misaligned entity boundaries. It will show up multiple times
+# because the message changes with the input text.
+# More info on the warning: https://github.com/explosion/spaCy/issues/5727
+warnings.filterwarnings('ignore', message=r'.*W030.*')
 
 def flatten(lists):
     return [e for l in lists for e in l]
@@ -119,6 +124,10 @@ class Evaluator:
                 #
                 # https://spacy.io/api/goldparse#biluo_tags_from_offsets
                 tags.append('O')
+                warnings.warn(
+                    'Some entities could not be aligned in the text. Use `spacy.gold.biluo_tags_from_offsets(nlp.make_doc(text), entities)` to check the alignment.',
+                    UserWarning
+                )
             elif tag_blind:
                 tags.append(entity_tag)
             else:
