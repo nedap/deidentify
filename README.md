@@ -155,12 +155,12 @@ We provide a number of pre-trained models for the Dutch language. The models wer
 
 | Name | Tagger | Language | Dataset | F1* | Precision* | Recall* | Tags |
 |------|--------|----------|---------|----|-----------|--------|--------|
-| [DEDUCE (Menger et al., 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365)** | `DeduceTagger` | Dutch | NUT | 0.7564 | 0.9092 | 0.6476 | [8 PHI Tags](https://github.com/nedap/deidentify/blob/168ad67aec586263250900faaf5a756d3b8dd6fa/deidentify/methods/deduce/run_deduce.py#L17) |
-| [model_crf_ons_tuned-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) | `CRFTagger` | Dutch | NUT | 0.9048 | 0.9632 | 0.8530 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) |
-| [model_bilstmcrf_ons_fast-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) | `FlairTagger`  | Dutch | NUT | 0.9461 | 0.9591 | 0.9335 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) |
-| [model_bilstmcrf_ons_large-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) | `FlairTagger` | Dutch | NUT | 0.9505 | 0.9683 | 0.9333 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) |
+| [DEDUCE (Menger et al., 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365)** | `DeduceTagger` | Dutch | NUT | 0.6649 | 0.8192 | 0.5595 | [8 PHI Tags](https://github.com/nedap/deidentify/blob/168ad67aec586263250900faaf5a756d3b8dd6fa/deidentify/methods/deduce/run_deduce.py#L17) |
+| [model_crf_ons_tuned-v0.2.0](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.2.0) | `CRFTagger` | Dutch | NUT | 0.8511 | 0.9337 | 0.7820 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.2.0) |
+| [model_bilstmcrf_ons_fast-v0.2.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.2.0) | `FlairTagger`  | Dutch | NUT | 0.8914 | 0.9101 | 0.8735 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.2.0) |
+| [model_bilstmcrf_ons_large-v0.2.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.2.0) | `FlairTagger` | Dutch | NUT | 0.8990 | 0.9240 | 0.8754 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.2.0) |
 
-*\*All scores are token-level (tag-blind) precision/recall/F1 obtained on the test portion of each dataset. For additional metrics, see the corresponding model release.*
+*\*All scores are micro-averaged entity-level precision/recall/F1 obtained on the test portion of each dataset. For additional metrics, see the corresponding model release.*
 
 *\*\*DEDUCE was developed on a dataset of psychiatric nursing notes and treatment plans. The numbers reported here were obtained by applying DEDUCE to our NUT dataset. For more information on the development of DEDUCE, see the paper by [Menger et al. (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365).*
 
