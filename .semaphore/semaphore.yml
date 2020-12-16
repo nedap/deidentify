@@ -40,3 +40,30 @@ blocks:
           commands:
             - source activate deidentify
             - make lintci
+
+  - name: Integration Tests
+    dependencies: ["Install Dependencies and Unit Tests"]
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cache restore deidentify-models
+
+      jobs:
+        - name: Python 3.6
+          commands:
+            - sem-version python 3.6
+            - pip install -e .
+            - python demo.py
+
+        - name: Python 3.7
+          commands:
+            - sem-version python 3.7
+            - pip install -e .
+            - python demo.py
+
+        - name: Python 3.8
+          commands:
+            - sem-version python 3.8
+            - pip install -e .
+            - python demo.py
