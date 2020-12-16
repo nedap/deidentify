@@ -37,6 +37,6 @@ def test_cached_model_file_raises_error_on_missing_model(tmpdir):
             == Path(tmpdir, 'model_bilstmcrf_a', 'final-model.pt')
 
 
-def test_lookup_model_with_invalid_name():
+def test_lookup_model_with_invalid_name_raises_value_error():
     with pytest.raises(ValueError):
         lookup_model('invalid')
