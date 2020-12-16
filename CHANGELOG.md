@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.7.0](https://github.com/nedap/deidentify/tree/v0.7.0) (2020-12-16)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/model_bilstmcrf_ons_fast-v0.2.0...v0.7.0)
+
+**Merged pull requests:**
+
+- Run integration tests for Python 3.6/3.7/3.8 on CI [\#48](https://github.com/nedap/deidentify/pull/48) ([jantrienes](https://github.com/jantrienes))
+- Move pytest-cov and pylint configuration to setup.cfg [\#47](https://github.com/nedap/deidentify/pull/47) ([jantrienes](https://github.com/jantrienes))
+- Remove obsolete conditional in CRF tagger [\#46](https://github.com/nedap/deidentify/pull/46) ([jantrienes](https://github.com/jantrienes))
+- Add integration tests for FlairTagger and CRFTagger [\#45](https://github.com/nedap/deidentify/pull/45) ([jantrienes](https://github.com/jantrienes))
+- Handle invalid model names in model lookup [\#44](https://github.com/nedap/deidentify/pull/44) ([jantrienes](https://github.com/jantrienes))
+- Automate model download if not found in cache [\#43](https://github.com/nedap/deidentify/pull/43) ([jantrienes](https://github.com/jantrienes))
+- Upgrade model training dependencies [\#42](https://github.com/nedap/deidentify/pull/42) ([jantrienes](https://github.com/jantrienes))
+- Return dict for ignored sents in crf.predict\_marginals [\#41](https://github.com/nedap/deidentify/pull/41) ([jantrienes](https://github.com/jantrienes))
+- Add fine-tuning and embedding language flags [\#40](https://github.com/nedap/deidentify/pull/40) ([AIessa](https://github.com/AIessa))
+
 ## [v0.6.1](https://github.com/nedap/deidentify/tree/v0.6.1) (2020-10-13)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.6.0...v0.6.1)
@@ -75,6 +91,7 @@
 
 **Merged pull requests:**
 
+- Fix BiLSTM-CRF with consecutive whitespace tokens [\#20](https://github.com/nedap/deidentify/pull/20) ([jantrienes](https://github.com/jantrienes))
 - Pin torch version in environment.yml [\#19](https://github.com/nedap/deidentify/pull/19) ([jantrienes](https://github.com/jantrienes))
 - Add efficiency benchmark [\#18](https://github.com/nedap/deidentify/pull/18) ([jantrienes](https://github.com/jantrienes))
 - Add requirements-dev.txt to list explicit dev requirements [\#17](https://github.com/nedap/deidentify/pull/17) ([jantrienes](https://github.com/jantrienes))
@@ -96,7 +113,6 @@
 
 **Merged pull requests:**
 
-- Fix BiLSTM-CRF with consecutive whitespace tokens [\#20](https://github.com/nedap/deidentify/pull/20) ([jantrienes](https://github.com/jantrienes))
 - Add bound on torch version [\#10](https://github.com/nedap/deidentify/pull/10) ([jantrienes](https://github.com/jantrienes))
 
 ## [v0.3.0](https://github.com/nedap/deidentify/tree/v0.3.0) (2020-01-16)
