@@ -18,20 +18,16 @@ def _load_yaml(yaml_file):
     return config
 
 
-def noop():
-    return None
-
-
 def micro_f1(gold: List[Document], predicted: List[Document]):
-    return evaluator.Evaluator(gold, predicted, tokenizer=noop).entity_level().f_score()
+    return evaluator.Evaluator(gold, predicted).entity_level().f_score()
 
 
 def micro_precision(gold: List[Document], predicted: List[Document]):
-    return evaluator.Evaluator(gold, predicted, tokenizer=noop).entity_level().precision()
+    return evaluator.Evaluator(gold, predicted).entity_level().precision()
 
 
 def micro_recall(gold: List[Document], predicted: List[Document]):
-    return evaluator.Evaluator(gold, predicted, tokenizer=noop).entity_level().recall()
+    return evaluator.Evaluator(gold, predicted).entity_level().recall()
 
 
 class SignificanceReport:

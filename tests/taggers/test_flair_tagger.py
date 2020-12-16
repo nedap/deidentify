@@ -3,7 +3,7 @@ from deidentify.taggers import FlairTagger
 from deidentify.tokenizer import TokenizerFactory
 
 tokenizer = TokenizerFactory().tokenizer(corpus='ons')
-tagger = FlairTagger(model='model_bilstmcrf_ons_fast-v0.1.0', tokenizer=tokenizer)
+tagger = FlairTagger(model='model_bilstmcrf_ons_fast-v0.2.0', tokenizer=tokenizer)
 
 
 def test_annotate():

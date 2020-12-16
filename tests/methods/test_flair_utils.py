@@ -12,32 +12,44 @@ def test_standoff_to_flair_sents():
     docs = corpus.train
     sents, parsed_docs = flair_utils.standoff_to_flair_sents(docs, tokenizer)
 
-    assert len(sents) == 10
-    assert len(parsed_docs) == 10
+    assert len(sents) == 14
+    assert len(parsed_docs) == 14
 
     bio_tags = [token.get_tag('ner').value for token in sents[0]]
     token_texts = [token.text for token in sents[0]]
-
     assert token_texts == [
         'Linders',
         ',',
         'Xandro',
-        '<',
-        't.njg.nmmeso@rcrmb.nl',
+        '<'
+    ]
+    assert bio_tags == [
+        'B-Name',
+        'I-Name',
+        'I-Name',
+        'O'
+    ]
+
+    bio_tags = [token.get_tag('ner').value for token in sents[1]]
+    token_texts = [token.text for token in sents[1]]
+    assert token_texts == [
+        't.njg.nmmeso@rcrmb.nl'
+    ]
+    assert bio_tags == [
+        'B-Email'
+    ]
+
+    bio_tags = [token.get_tag('ner').value for token in sents[2]]
+    token_texts = [token.text for token in sents[2]]
+    assert token_texts == [
         '>',
         '<SPACE>',
         '07',
         'apr',
         '.',
-        '<SPACE>',
+        '<SPACE>'
     ]
-
     assert bio_tags == [
-        'B-Name',
-        'I-Name',
-        'I-Name',
-        'O',
-        'B-Email',
         'O',
         'O',
         'B-Date',
