@@ -1,2 +1,0 @@
-[TYPECHECK]
-ignored-modules=spacy.symbols, spacy.gold, spacy.matcher, spacy.tokens.doc

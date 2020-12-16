@@ -1,9 +1,0 @@
-[report]
-exclude_lines =
-    def arg_parser
-    raise AssertionError
-    raise NotImplementedError
-    if __name__ == .__main__.:
-    def __repr__
-    def __str__
-    def __unicode__
