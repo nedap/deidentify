@@ -20,10 +20,10 @@ Create a new virtual environment with an environment manager of your choice. The
 pip install deidentify
 ```
 
-We use the spaCy tokenizer. For good compatibility with the pre-trained models, we recommend using the same spaCy tokenization models that were used at de-identification model training time:
+We use the spaCy tokenizer. For good compatibility with the pre-trained models, we recommend using the same version that we used to train the de-identification models.
 
 ```sh
-pip install https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.2.1/nl_core_news_sm-2.2.1.tar.gz#egg=nl_core_news_sm==2.2.1
+pip install https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.3.0/nl_core_news_sm-2.3.0.tar.gz#egg=nl_core_news_sm==2.3.0
 ```
 
 ### Example Usage
@@ -48,7 +48,7 @@ documents = [
 ]
 
 # Select downloaded model
-model = 'model_bilstmcrf_ons_fast-v0.1.0'
+model = 'model_bilstmcrf_ons_fast-v0.2.0'
 
 # Instantiate tokenizer
 tokenizer = TokenizerFactory().tokenizer(corpus='ons', disable=("tagger", "ner"))
