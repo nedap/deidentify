@@ -10,6 +10,7 @@ auto_cancel:
 
 blocks:
   - name: Install Dependencies and Unit Tests
+    dependencies: []
     task:
       prologue:
         commands:
