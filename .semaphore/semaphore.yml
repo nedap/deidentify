@@ -49,6 +49,7 @@ blocks:
         commands:
           - checkout
           - cache restore deidentify-models
+          - sudo locale-gen nl_NL.UTF-8 de_DE.UTF-8
 
       jobs:
         - name: Python 3.6
