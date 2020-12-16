@@ -28,13 +28,7 @@ pip install https://github.com/explosion/spacy-models/releases/download/nl_core_
 
 ### Example Usage
 
-Below, we will create an example document and run a pre-trained de-identification model over it. First, let's download a pre-trained model and save it in the model cache at `~/.deidentify`. See below for a [list of available models](#pre-trained-models).
-
-```sh
-python -m deidentify.util.download_model model_bilstmcrf_ons_fast-v0.1.0
-```
-
-Then, we can create a document, load the tagger with the pre-trained model, and finally annotate the document.
+The code below shows how to apply a pre-trained de-identification pipeline to an example document. We provide a [list of available models](#pre-trained-models) below.
 
 ```py
 from deidentify.base import Document
