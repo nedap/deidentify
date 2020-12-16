@@ -8,6 +8,7 @@ from loguru import logger
 import deidentify
 from deidentify.base import Document
 from deidentify.util import download_model
+import tarfile
 
 
 def lookup_model(model):
@@ -57,11 +58,10 @@ def cached_model_file(model: str) -> Path:
             tag = model
             cache_dir = deidentify.cache_root
 
-        download_model.main(DownloadArgs)
-
         try:
+            download_model.main(DownloadArgs)
             assert isfile(model_path)
-        except AssertionError as e:
+        except (tarfile.ReadError, AssertionError) as e:
             raise ValueError('Unexpected error during model download.') from e
 
     return model_path
