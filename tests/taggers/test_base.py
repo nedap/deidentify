@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 
-from deidentify.taggers.base import cached_model_file
+from deidentify.taggers.base import cached_model_file, lookup_model
 
 
 def test_cached_model_file(tmpdir):
@@ -35,3 +35,8 @@ def test_cached_model_file_raises_error_on_missing_model(tmpdir):
         model_dir.join('final-model.pt').write('')
         assert cached_model_file('model_bilstmcrf_a') \
             == Path(tmpdir, 'model_bilstmcrf_a', 'final-model.pt')
+
+
+def test_lookup_model_with_invalid_name_raises_value_error():
+    with pytest.raises(ValueError):
+        lookup_model('invalid')

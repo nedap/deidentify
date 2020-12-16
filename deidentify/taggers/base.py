@@ -35,7 +35,7 @@ def cached_model_file(model: str) -> Path:
     Path
         The path to the pickle/pt file corresponding to the model name.
     """
-    model_path = None
+    model_path = Path(model)
 
     if model.startswith('model_bilstmcrf_'):
         model_path = Path(deidentify.cache_root, model, 'final-model.pt')

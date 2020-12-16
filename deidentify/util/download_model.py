@@ -55,10 +55,12 @@ def download_file(url: str, cache_dir: str):
     finally:
         os.remove(temp_filename)
 
-    logger.info("Extracting {}", cache_archive_path)
-    with tarfile.open(cache_archive_path, "r:gz") as tar:
-        tar.extractall(cache_dir)
-    os.remove(cache_archive_path)
+    try:
+        logger.info("Extracting {}", cache_archive_path)
+        with tarfile.open(cache_archive_path, "r:gz") as tar:
+            tar.extractall(cache_dir)
+    finally:
+        os.remove(cache_archive_path)
 
 
 def main(args):
