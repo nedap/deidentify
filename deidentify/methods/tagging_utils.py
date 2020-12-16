@@ -1,6 +1,6 @@
 """Utility methods to convert between standoff and BIO format.
 """
-
+import warnings
 from collections import defaultdict, namedtuple
 from typing import List, Tuple
 
@@ -14,6 +14,11 @@ from deidentify.tokenizer import Tokenizer
 
 Token = namedtuple('Token', ['text', 'pos_tag', 'label', 'ner_tag'])
 ParsedDoc = namedtuple('ParsedDoc', ['spacy_doc', 'name', 'text'])
+
+# Silence spaCy warning regarding misaligned entity boundaries. It will show up multiple times
+# because the message changes with the input text.
+# More info on the warning: https://github.com/explosion/spaCy/issues/5727
+warnings.filterwarnings('ignore', message=r'.*W030.*')
 
 
 def standoff_to_sents(docs: List[Document],
@@ -220,6 +225,10 @@ def _doc_to_bio(parsed_doc: spacy.tokens.Doc, annotations: List[Annotation]):
             # Returned by spacy if token boundaries mismatch entity boundaries.
             # https://spacy.io/api/goldparse#biluo_tags_from_offsets
             tags.append('O')
+            warnings.warn(
+                'Some entities could not be aligned in the text. Use `spacy.gold.biluo_tags_from_offsets(nlp.make_doc(text), entities)` to check the alignment.',
+                UserWarning
+            )
         else:
             tags.append(biluo_to_bio[tag[0:2]] + tag[2:])
 

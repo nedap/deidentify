@@ -3,7 +3,7 @@ from deidentify.taggers import CRFTagger
 from deidentify.tokenizer import TokenizerFactory
 
 tokenizer = TokenizerFactory().tokenizer(corpus='ons')
-tagger = CRFTagger(model='model_crf_ons_tuned-v0.1.0', tokenizer=tokenizer)
+tagger = CRFTagger(model='model_crf_ons_tuned-v0.2.0', tokenizer=tokenizer)
 
 
 def test_annotate():

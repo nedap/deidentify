@@ -1,8 +1,8 @@
+import warnings
 from collections import namedtuple
 from typing import List
 
 import numpy as np
-import spacy
 from loguru import logger
 from sklearn.metrics import confusion_matrix
 from spacy.gold import biluo_tags_from_offsets
@@ -13,6 +13,10 @@ from deidentify.evaluation.metric import Metric
 Entity = namedtuple('Entity', ['doc_name', 'start', 'end', 'tag'])
 ENTITY_TAG = 'ENT'
 
+# Silence spaCy warning regarding misaligned entity boundaries. It will show up multiple times
+# because the message changes with the input text.
+# More info on the warning: https://github.com/explosion/spaCy/issues/5727
+warnings.filterwarnings('ignore', message=r'.*W030.*')
 
 def flatten(lists):
     return [e for l in lists for e in l]
@@ -20,25 +24,23 @@ def flatten(lists):
 
 class Evaluator:
 
-    def __init__(self, gold: List[Document], predicted: List[Document], language='nl',
-                 tokenizer=None):
+    def __init__(self, gold: List[Document], predicted: List[Document], language='nl'):
         self.gold = gold
         self.predicted = predicted
 
         self.tags = sorted(list(set(ann.tag for doc in gold for ann in doc.annotations)))
 
-        if tokenizer:
-            self.tokenize = tokenizer
-        else:
-            if language not in self.supported_languages():
-                logger.warning(
-                    'Unknown language {} for evaluation. Fallback to "en"'.format(language))
-                language = 'en'
+        if language not in self.supported_languages():
+            logger.warning(
+                'Unknown language {} for evaluation. Fallback to "en"'.format(language))
+            language = 'en'
 
-            if language == 'nl':
-                self.tokenize = spacy.load('nl_core_news_sm')
-            else:
-                self.tokenize = spacy.load('en_core_web_sm')
+        if language == 'nl':
+            from deidentify.tokenizer.tokenizer_ons import TokenizerOns
+            self.tokenizer = TokenizerOns(disable=('tagger', 'parser', 'ner'))
+        else:
+            from deidentify.tokenizer.tokenizer_en import TokenizerEN
+            self.tokenizer = TokenizerEN(disable=('tagger', 'parser', 'ner'))
 
     @staticmethod
     def supported_languages():
@@ -108,7 +110,7 @@ class Evaluator:
         return metric
 
     def token_annotations(self, doc, tag_blind=False, entity_tag=ENTITY_TAG):
-        parsed = self.tokenize(doc.text, disable=("tagger", "parser", "ner"))
+        parsed = self.tokenizer.parse_text(doc.text)
         entities = [(int(ann.start), int(ann.end), ann.tag) for ann in doc.annotations]
         biluo_tags = biluo_tags_from_offsets(parsed, entities)
 
@@ -122,6 +124,10 @@ class Evaluator:
                 #
                 # https://spacy.io/api/goldparse#biluo_tags_from_offsets
                 tags.append('O')
+                warnings.warn(
+                    'Some entities could not be aligned in the text. Use `spacy.gold.biluo_tags_from_offsets(nlp.make_doc(text), entities)` to check the alignment.',
+                    UserWarning
+                )
             elif tag_blind:
                 tags.append(entity_tag)
             else:
