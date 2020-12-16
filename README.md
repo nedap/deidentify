@@ -147,12 +147,12 @@ A `deidentify.taggers.TextTagger` has a `tags` property that can be used to get 
 We provide a number of pre-trained models for the Dutch language. The models were developed on the Nedap/University of Twente (NUT) dataset. The dataset consists of 1260 documents from three domains of Dutch healthcare: elderly care, mental care and disabled care (note: in the codebase we sometimes also refer to this dataset as `ons`). More information on the design of the dataset can be found in [our paper](https://arxiv.org/abs/2001.05714).
 
 
-| Name | Tagger | Language | Dataset | F1* | Precision* | Recall* | Tags |
+| Name | Tagger | Lang | Dataset | F1* | Precision* | Recall* | Tags |
 |------|--------|----------|---------|----|-----------|--------|--------|
-| [DEDUCE (Menger et al., 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365)** | `DeduceTagger` | Dutch | NUT | 0.7564 | 0.9092 | 0.6476 | [8 PHI Tags](https://github.com/nedap/deidentify/blob/168ad67aec586263250900faaf5a756d3b8dd6fa/deidentify/methods/deduce/run_deduce.py#L17) |
-| [model_crf_ons_tuned-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) | `CRFTagger` | Dutch | NUT | 0.9048 | 0.9632 | 0.8530 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) |
-| [model_bilstmcrf_ons_fast-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) | `FlairTagger`  | Dutch | NUT | 0.9461 | 0.9591 | 0.9335 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) |
-| [model_bilstmcrf_ons_large-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) | `FlairTagger` | Dutch | NUT | 0.9505 | 0.9683 | 0.9333 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) |
+| [DEDUCE (Menger et al., 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365)** | `DeduceTagger` | NL | NUT | 0.7564 | 0.9092 | 0.6476 | [8 PHI Tags](https://github.com/nedap/deidentify/blob/168ad67aec586263250900faaf5a756d3b8dd6fa/deidentify/methods/deduce/run_deduce.py#L17) |
+| [model_crf_ons_tuned-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) | `CRFTagger` | NL | NUT | 0.9048 | 0.9632 | 0.8530 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_crf_ons_tuned-v0.1.0) |
+| [model_bilstmcrf_ons_fast-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) | `FlairTagger`  | NL | NUT | 0.9461 | 0.9591 | 0.9335 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_fast-v0.1.0) |
+| [model_bilstmcrf_ons_large-v0.1.0](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) | `FlairTagger` | NL | NUT | 0.9505 | 0.9683 | 0.9333 | [15 PHI Tags](https://github.com/nedap/deidentify/releases/tag/model_bilstmcrf_ons_large-v0.1.0) |
 
 *\*All scores are token-level (tag-blind) precision/recall/F1 obtained on the test portion of each dataset. For additional metrics, see the corresponding model release.*
 
