@@ -4,7 +4,7 @@
 
 CORPUS=ons # (ons|i2b2|nursing)
 
-source activate deidentify
+conda activate deidentify
 
 # Disable MKL multithreading as it will actually slow down spaCy tokenization
 export MKL_NUM_TRHEADS=1

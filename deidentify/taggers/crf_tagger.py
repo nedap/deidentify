@@ -42,10 +42,7 @@ class CRFTagger(TextTagger):
 
         targets = set()
         for target in bio_tag_names:
-            if target == 'O':
-                targets.add('O')
-            else:
-                name = target.split('-', maxsplit=1)[1]
-                targets.add(name)
+            name = target.split('-', maxsplit=1)[1]
+            targets.add(name)
 
         return list(targets)

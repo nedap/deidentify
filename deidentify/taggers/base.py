@@ -3,8 +3,12 @@ from os.path import isfile
 from pathlib import Path
 from typing import List
 
+from loguru import logger
+
 import deidentify
 from deidentify.base import Document
+from deidentify.util import download_model
+import tarfile
 
 
 def lookup_model(model):
@@ -31,7 +35,7 @@ def cached_model_file(model: str) -> Path:
     Path
         The path to the pickle/pt file corresponding to the model name.
     """
-    model_path = None
+    model_path = Path(model)
 
     if model.startswith('model_bilstmcrf_'):
         model_path = Path(deidentify.cache_root, model, 'final-model.pt')
@@ -42,10 +46,23 @@ def cached_model_file(model: str) -> Path:
     try:
         assert isfile(model_path)
     except AssertionError:
-        raise ValueError(
-            f'The model "{model}" could not be found in the model cache at '
-            f'"{deidentify.cache_root}". You may have to download it first.'
+        logger.info(
+            'The model "{}" could not be found in the model cache "{}". Attempt to download...',
+            model,
+            deidentify.cache_root
         )
+
+        class DownloadArgs:
+            owner = 'nedap'
+            repo = 'deidentify'
+            tag = model
+            cache_dir = deidentify.cache_root
+
+        try:
+            download_model.main(DownloadArgs)
+            assert isfile(model_path)
+        except (tarfile.ReadError, AssertionError) as e:
+            raise ValueError('Unexpected error during model download.') from e
 
     return model_path
 
