@@ -39,12 +39,10 @@ class FlairTagger(TextTagger):
         bio_tag_names.remove('<unk>')
         bio_tag_names.remove('<START>')
         bio_tag_names.remove('<STOP>')
+        bio_tag_names.remove('O')
 
         tags = set()
         for bio_tag in bio_tag_names:
-            if bio_tag == 'O':
-                tags.add('O')
-            else:
-                name = bio_tag.split('-', maxsplit=1)[1]
-                tags.add(name)
+            name = bio_tag.split('-', maxsplit=1)[1]
+            tags.add(name)
         return list(tags)
