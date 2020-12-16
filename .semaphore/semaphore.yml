@@ -55,16 +55,19 @@ blocks:
           commands:
             - sem-version python 3.6
             - pip install -e .
+            - pip install https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.3.0/nl_core_news_sm-2.3.0.tar.gz#egg=nl_core_news_sm==2.3.0
             - python demo.py
 
         - name: Python 3.7
           commands:
             - sem-version python 3.7
             - pip install -e .
+            - pip install https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.3.0/nl_core_news_sm-2.3.0.tar.gz#egg=nl_core_news_sm==2.3.0
             - python demo.py
 
         - name: Python 3.8
           commands:
             - sem-version python 3.8
             - pip install -e .
+            - pip install https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-2.3.0/nl_core_news_sm-2.3.0.tar.gz#egg=nl_core_news_sm==2.3.0
             - python demo.py
