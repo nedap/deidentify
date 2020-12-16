@@ -31,7 +31,10 @@ blocks:
         - name: Unit Tests
           commands:
             - source activate deidentify
+            - cache restore deidentify-models
             - pytest tests/
+            - MODEL_DIR=$(python -c "from deidentify import cache_root; print(cache_root)")
+            - cache store deidentify-models $MODEL_DIR
 
         - name: Pylint
           commands:
