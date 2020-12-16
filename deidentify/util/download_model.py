@@ -32,7 +32,7 @@ def download_file(url: str, cache_dir: str):
 
     if exists(cache_target_path):
         logger.info('Skip download. File already exists at: {}', cache_target_path)
-        sys.exit()
+        return
 
     fd, temp_filename = tempfile.mkstemp()
     try:
