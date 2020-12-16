@@ -59,10 +59,10 @@ def cached_model_file(model: str) -> Path:
 
         download_model.main(DownloadArgs)
 
-    try:
-        assert isfile(model_path)
-    except AssertionError as e:
-        raise ValueError('Unexpected error during model download.') from e
+        try:
+            assert isfile(model_path)
+        except AssertionError as e:
+            raise ValueError('Unexpected error during model download.') from e
 
     return model_path
 
