@@ -19,6 +19,6 @@ for size in "${train_sizes[@]}"; do
         echo "========= size: $size - seed: $seed ========="
 
         python deidentify/methods/crf/run_crf_training_sample.py "$CORPUS" subset_training liu_2015 --train_sample_frac="$size" --random_seed="$seed"
-        python deidentify/methods/bilstmcrf/run_bilstmcrf_training_sample.py ons subset_training --train_sample_frac="$size" --random_seed="$seed"
+        python deidentify/methods/bilstmcrf/run_bilstmcrf_training_sample.py "$CORPUS" subset_training --train_sample_frac="$size" --random_seed="$seed"
     done
 done
