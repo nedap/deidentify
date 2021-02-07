@@ -73,7 +73,7 @@ try:
 except ValueError:
     # spacy>=3
     from spacy.language import Language
-    Language.component('meta-sentence-segmentation')(_metadata_sentence_segmentation)
+    Language.component('meta-sentence-segmentation')(_metadata_sentence_segmentation) # pylint: disable=E1101
     NLP.add_pipe('meta-sentence-segmentation', before="parser")  # Insert before the parser
 
 for case in TOKENIZER_SPECIAL_CASES:
