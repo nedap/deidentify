@@ -68,7 +68,13 @@ def _metadata_sentence_segmentation(doc):
 
 
 NLP = spacy.load('nl_core_news_sm')
-NLP.add_pipe(_metadata_sentence_segmentation, before="parser")  # Insert before the parser
+try:
+    NLP.add_pipe(_metadata_sentence_segmentation, before="parser")  # Insert before the parser
+except ValueError:
+    # spacy>=3
+    from spacy.language import Language
+    Language.component('meta-sentence-segmentation')(_metadata_sentence_segmentation)
+    NLP.add_pipe('meta-sentence-segmentation', before="parser")  # Insert before the parser
 
 for case in TOKENIZER_SPECIAL_CASES:
     NLP.tokenizer.add_special_case(case, [{ORTH: case}])
@@ -109,7 +115,7 @@ class TokenizerOns(Tokenizer):
             {"ORTH": "="}, {"ORTH": "="}, {"ORTH": "="},
             {"ORTH": "\n"}
         ]
-        matcher.add("METADATA", None, pattern)
+        matcher.add("METADATA", [pattern])
 
         doc = NLP(text, disable=self.disable)
         matches = matcher(doc)
