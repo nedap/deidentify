@@ -5,7 +5,12 @@ from typing import List
 import numpy as np
 from loguru import logger
 from sklearn.metrics import confusion_matrix
-from spacy.gold import biluo_tags_from_offsets
+
+try:
+    from spacy.gold import biluo_tags_from_offsets
+except ModuleNotFoundError:
+    # spacy>=3
+    from spacy.training.iob_utils import biluo_tags_from_offsets
 
 from deidentify.base import Document
 from deidentify.evaluation.metric import Metric
@@ -125,7 +130,7 @@ class Evaluator:
                 # https://spacy.io/api/goldparse#biluo_tags_from_offsets
                 tags.append('O')
                 warnings.warn(
-                    'Some entities could not be aligned in the text. Use `spacy.gold.biluo_tags_from_offsets(nlp.make_doc(text), entities)` to check the alignment.',
+                    'Some entities could not be aligned in the text. Use `spacy.training.iob_utils.biluo_tags_from_offsets(nlp.make_doc(text), entities)` to check the alignment.',
                     UserWarning
                 )
             elif tag_blind:
