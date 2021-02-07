@@ -6,7 +6,13 @@ from typing import List, Tuple
 
 import spacy
 from loguru import logger
-from spacy.gold import biluo_tags_from_offsets, offsets_from_biluo_tags
+
+try:
+    from spacy.gold import biluo_tags_from_offsets, offsets_from_biluo_tags
+except ModuleNotFoundError:
+    # spacy>=3
+    from spacy.training.iob_utils import biluo_tags_from_offsets, offsets_from_biluo_tags
+
 from tqdm import tqdm
 
 from deidentify.base import Annotation, Document
