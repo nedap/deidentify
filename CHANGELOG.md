@@ -1,5 +1,19 @@
 # Changelog
 
+## [v0.7.1](https://github.com/nedap/deidentify/tree/v0.7.1) (2021-02-15)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.7.0...v0.7.1)
+
+**Closed issues:**
+
+- Support spaCy 3 [\#51](https://github.com/nedap/deidentify/issues/51)
+- Auto exiting from Google colab while training model [\#50](https://github.com/nedap/deidentify/issues/50)
+
+**Merged pull requests:**
+
+- Add Python 3.9 tests to CI pipeline [\#53](https://github.com/nedap/deidentify/pull/53) ([jantrienes](https://github.com/jantrienes))
+- Add spacy 3 compatibility [\#52](https://github.com/nedap/deidentify/pull/52) ([jantrienes](https://github.com/jantrienes))
+
 ## [v0.7.0](https://github.com/nedap/deidentify/tree/v0.7.0) (2020-12-16)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/model_bilstmcrf_ons_fast-v0.2.0...v0.7.0)
