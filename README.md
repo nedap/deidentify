@@ -198,4 +198,4 @@ Please cite the following paper when using `deidentify`:
 
 ## Contact
 
-If you have any question, please contact Jan Trienes at jan.trienes@nedap.com.
+If you have any question, please contact Jan Trienes at jan.trienes@gmail.com.
