@@ -85,13 +85,11 @@ This should print the entities of the first document.
 
 #### Masking or Replacing Annotations
 
-Often, it is desirable to remove the sensitive annotations from the documents. `deidentify` implements two strategies:
-
-1. **Masking:** replace annotations with placeholders. Example: `Jan Jansen -> [Name]`
-1. **Surrogates [experimental]:** replace annotations with random but realistic alternatives. Example: `Jan Jansen -> Bart Bakker`. The surrogate replacement strategy follows [Stubbs et al. (2015)](https://doi.org/10.1007/978-3-319-23633-9_27).
+`deidentify` implements two strategies to remove sensitive annotations from the documents: masking and surrogates.
 
 ##### Masking
-Continuing from the example above, this is how to mask annotations:
+
+Use masking to replace annotations with placeholders. Example: `Jan Jansen -> [Name]`
 
 ```py
 from deidentify.util import mask_annotations
@@ -106,7 +104,7 @@ Which should print:
 
 ##### Surrogates [experimental]
 
-And this is how to generate surrogates:
+Use sorrogate generation to replace annotations with random but realistic alternatives. Example: `Jan Jansen -> Bart Bakker`. The surrogate replacement strategy follows [Stubbs et al. (2015)](https://doi.org/10.1007/978-3-319-23633-9_27).
 
 ```py
 from deidentify.util import surrogate_annotations
