@@ -24,17 +24,21 @@ def main(args, model_dir):
     logger.info('Loaded corpus: {}'.format(corpus))
 
     logger.info('Get sentences...')
-    train_sents, _ = flair_utils.standoff_to_flair_sents(corpus.train, tokenizer, verbose=True)
-    dev_sents, _ = flair_utils.standoff_to_flair_sents(corpus.dev, tokenizer, verbose=True)
+    train_sents, _ = flair_utils.standoff_to_flair_sents(
+        corpus.train, tokenizer, verbose=True)
+    dev_sents, _ = flair_utils.standoff_to_flair_sents(
+        corpus.dev, tokenizer, verbose=True)
     test_sents, test_docs = flair_utils.standoff_to_flair_sents(corpus.test,
                                                                 tokenizer, verbose=True)
 
     train_sents = train_sents + dev_sents
-    train_sents_filtered = list(filter(lambda sent: not _ignore_sentence(sent), train_sents))
+    train_sents_filtered = list(
+        filter(lambda sent: not _ignore_sentence(sent), train_sents))
 
     sample_size = int(len(train_sents_filtered) * args.train_sample_frac)
     rs = RandomState(seed=args.random_seed)
-    train_sents_sample = rs.choice(train_sents_filtered, replace=False, size=sample_size).tolist()
+    train_sents_sample = rs.choice(
+        train_sents_filtered, replace=False, size=sample_size).tolist()
     logger.info('Train with fraction of training data: {} sents out of {} sentences ({}%)',
                 sample_size, len(train_sents_filtered), args.train_sample_frac)
 
@@ -78,7 +82,8 @@ def main(args, model_dir):
 
 def arg_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("corpus", choices=CORPUS_PATH.keys(), help="Corpus identifier.")
+    parser.add_argument("corpus", choices=CORPUS_PATH.keys(),
+                        help="Corpus identifier.")
     parser.add_argument("run_id", help="Run identifier")
     parser.add_argument("--train_sample_frac",
                         help="Fraction of the training data to use.",
@@ -92,8 +97,8 @@ def arg_parser():
                         help="If passed, the final model is saved.",
                         action='store_true')
     parser.add_argument("--embedding_lang",
-                choices = ['en','nl'],
-                help="Specify language of embeddings.")
+                        choices=['en', 'nl', 'fr'],
+                        help="Specify language of embeddings.")
     return parser.parse_args()
 
 
