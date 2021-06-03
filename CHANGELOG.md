@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased](https://github.com/nedap/deidentify/tree/HEAD)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.7.1...HEAD)
+
+**Closed issues:**
+
+- Surrogation output [\#56](https://github.com/nedap/deidentify/issues/56)
+- Surrogate Evaluation Script [\#55](https://github.com/nedap/deidentify/issues/55)
+- Surrogation Methods  [\#54](https://github.com/nedap/deidentify/issues/54)
+
 ## [v0.7.1](https://github.com/nedap/deidentify/tree/v0.7.1) (2021-02-15)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.7.0...v0.7.1)
@@ -16,7 +26,7 @@
 
 ## [v0.7.0](https://github.com/nedap/deidentify/tree/v0.7.0) (2020-12-16)
 
-[Full Changelog](https://github.com/nedap/deidentify/compare/model_bilstmcrf_ons_fast-v0.2.0...v0.7.0)
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.6.1...v0.7.0)
 
 **Merged pull requests:**
 
@@ -131,7 +141,7 @@
 
 ## [v0.3.0](https://github.com/nedap/deidentify/tree/v0.3.0) (2020-01-16)
 
-[Full Changelog](https://github.com/nedap/deidentify/compare/model_crf_ons_tuned-v0.1.0...v0.3.0)
+[Full Changelog](https://github.com/nedap/deidentify/compare/355d23ac80b64d277ae70daf8e9914c6671f2256...v0.3.0)
 
 **Merged pull requests:**
 

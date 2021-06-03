@@ -48,6 +48,11 @@ def get_embeddings(corpus_name: str,
         word_embeddings = 'nl'
         contextual_forward = 'nl-forward'
         contextual_backward = 'nl-backward'
+    elif language == 'fr':
+        logger.info('Use French embeddings')
+        word_embeddings = 'fr'
+        contextual_forward = 'fr-forward'
+        contextual_backward = 'fr-backward'
     else:
         logger.info('Use English embeddings')
         word_embeddings = 'glove'
@@ -92,7 +97,8 @@ def get_model(corpus: flair.data.Corpus,
         contextual_backward_path=contextual_backward_path
     )
 
-    embeddings: StackedEmbeddings = StackedEmbeddings(embeddings=embedding_types)
+    embeddings: StackedEmbeddings = StackedEmbeddings(
+        embeddings=embedding_types)
     tagger: SequenceTagger = SequenceTagger(hidden_size=256,
                                             embeddings=embeddings,
                                             tag_dictionary=tag_dictionary,
@@ -112,7 +118,8 @@ def main(args):
     logger.info('Get sentences...')
     train_sents, train_docs = flair_utils.standoff_to_flair_sents(corpus.train, tokenizer,
                                                                   verbose=True)
-    dev_sents, dev_docs = flair_utils.standoff_to_flair_sents(corpus.dev, tokenizer, verbose=True)
+    dev_sents, dev_docs = flair_utils.standoff_to_flair_sents(
+        corpus.dev, tokenizer, verbose=True)
     test_sents, test_docs = flair_utils.standoff_to_flair_sents(corpus.test, tokenizer,
                                                                 verbose=True)
 
@@ -146,7 +153,8 @@ def main(args):
         if not args.train_with_dev:
             # Model performance is judged by dev data, so we also pick the best performing model
             # according to the dev score to make our final predictions.
-            tagger = SequenceTagger.load(join(model_dir, 'flair', 'best-model.pt'))
+            tagger = SequenceTagger.load(
+                join(model_dir, 'flair', 'best-model.pt'))
         else:
             # Training is stopped if train loss converges - here, we do not have a "best model" and
             # use the final model to make predictions.
@@ -156,18 +164,22 @@ def main(args):
     make_predictions(tagger, flair_corpus)
 
     train_utils.save_predictions(corpus_name=corpus.name, run_id=args.run_id,
-                                 train=flair_utils.flair_sents_to_standoff(train_sents, train_docs),
-                                 dev=flair_utils.flair_sents_to_standoff(dev_sents, dev_docs),
+                                 train=flair_utils.flair_sents_to_standoff(
+                                     train_sents, train_docs),
+                                 dev=flair_utils.flair_sents_to_standoff(
+                                     dev_sents, dev_docs),
                                  test=flair_utils.flair_sents_to_standoff(test_sents, test_docs))
 
 
 def arg_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("corpus", choices=CORPUS_PATH.keys(), help="Corpus identifier.")
+    parser.add_argument("corpus", choices=CORPUS_PATH.keys(),
+                        help="Corpus identifier.")
     parser.add_argument("run_id", help="Run identifier")
     parser.add_argument("--train_with_dev", help="Use dev set during training",
                         action='store_true')
-    parser.add_argument("--model_file", help="Load existing model instead of training new.")
+    parser.add_argument(
+        "--model_file", help="Load existing model instead of training new.")
     parser.add_argument("--pooled_contextual_embeddings",
                         help="Boolean flag whether to use pooled variant of FlairEmbeddings.",
                         action='store_true')
@@ -176,7 +188,7 @@ def arg_parser():
     parser.add_argument("--contextual_backward_path",
                         help="Path to contextual string embeddings (backward)")
     parser.add_argument("--embedding_lang",
-                        choices=['en', 'nl'],
+                        choices=['en', 'nl', 'fr'],
                         help="Specify language of embeddings.")
     parser.add_argument("--fine_tune",
                         help="Fine tune an existing model (has to be passed with --model_file)",
@@ -187,5 +199,6 @@ def arg_parser():
 if __name__ == '__main__':
     ARGS = arg_parser()
     ARGS.run_id = 'bilstmcrf_' + ARGS.run_id
-    logger.add(join(train_utils.model_dir(ARGS.corpus, ARGS.run_id), 'training.log'))
+    logger.add(join(train_utils.model_dir(
+        ARGS.corpus, ARGS.run_id), 'training.log'))
     main(ARGS)

@@ -23,6 +23,7 @@ ENTITY_TAG = 'ENT'
 # More info on the warning: https://github.com/explosion/spaCy/issues/5727
 warnings.filterwarnings('ignore', message=r'.*W030.*')
 
+
 def flatten(lists):
     return [e for l in lists for e in l]
 
@@ -33,7 +34,8 @@ class Evaluator:
         self.gold = gold
         self.predicted = predicted
 
-        self.tags = sorted(list(set(ann.tag for doc in gold for ann in doc.annotations)))
+        self.tags = sorted(
+            list(set(ann.tag for doc in gold for ann in doc.annotations)))
 
         if language not in self.supported_languages():
             logger.warning(
@@ -43,13 +45,16 @@ class Evaluator:
         if language == 'nl':
             from deidentify.tokenizer.tokenizer_ons import TokenizerOns
             self.tokenizer = TokenizerOns(disable=('tagger', 'parser', 'ner'))
+        if language == 'fr':
+            from deidentify.tokenizer.tokenizer_fr import TokenizerFR
+            self.tokenizer = TokenizerFR(disable=('tagger', 'parser', 'ner'))
         else:
             from deidentify.tokenizer.tokenizer_en import TokenizerEN
             self.tokenizer = TokenizerEN(disable=('tagger', 'parser', 'ner'))
 
     @staticmethod
     def supported_languages():
-        return ('nl', 'en')
+        return ('nl', 'en', 'fr')
 
     def entity_level(self):
         metric = Metric('entity level')
@@ -78,11 +83,13 @@ class Evaluator:
         metric = Metric('token level')
 
         tags_gold = flatten(self.token_annotations(doc) for doc in self.gold)
-        tags_pred = flatten(self.token_annotations(doc) for doc in self.predicted)
+        tags_pred = flatten(self.token_annotations(doc)
+                            for doc in self.predicted)
 
         cm = confusion_matrix(tags_gold, tags_pred, labels=self.tags + ['O'])
 
-        row_sum, col_sum, cm_sum = np.sum(cm, axis=0), np.sum(cm, axis=1), np.sum(cm)
+        row_sum, col_sum, cm_sum = np.sum(
+            cm, axis=0), np.sum(cm, axis=1), np.sum(cm)
         for i, tag in enumerate(self.tags):
             tp = cm[i, i]
             fp = row_sum[i] - cm[i, i]
@@ -99,8 +106,10 @@ class Evaluator:
     def token_level_blind(self):
         metric = Metric('token (blind)')
 
-        tags_gold = flatten(self.token_annotations(doc, tag_blind=True) for doc in self.gold)
-        tags_pred = flatten(self.token_annotations(doc, tag_blind=True) for doc in self.predicted)
+        tags_gold = flatten(self.token_annotations(
+            doc, tag_blind=True) for doc in self.gold)
+        tags_pred = flatten(self.token_annotations(
+            doc, tag_blind=True) for doc in self.predicted)
         # convert labels: ENT => 1, else => 0
         tags_gold = list(map(lambda tag: int(tag == ENTITY_TAG), tags_gold))
         tags_pred = list(map(lambda tag: int(tag == ENTITY_TAG), tags_pred))
@@ -116,7 +125,8 @@ class Evaluator:
 
     def token_annotations(self, doc, tag_blind=False, entity_tag=ENTITY_TAG):
         parsed = self.tokenizer.parse_text(doc.text)
-        entities = [(int(ann.start), int(ann.end), ann.tag) for ann in doc.annotations]
+        entities = [(int(ann.start), int(ann.end), ann.tag)
+                    for ann in doc.annotations]
         biluo_tags = biluo_tags_from_offsets(parsed, entities)
 
         tags = []
