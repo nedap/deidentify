@@ -13,17 +13,11 @@ import pandas as pd
 from loguru import logger
 
 from deidentify.evaluation.evaluate_run import evaluate
+from deidentify.evaluation.evaluator import Evaluator
 
 PREDICTIONS_PATH = join(dirname(__file__), '../../output/predictions/')
 OUTPUT_PATH = join(dirname(__file__), '../../output/evaluation')
 CORPUS_PATH = join(dirname(__file__), '../../data/corpus/')
-
-
-def _language_for_corpus(corpus: str):
-    if corpus.startswith('ons'):
-        return 'nl'
-
-    return 'en'
 
 
 def main(args):
@@ -46,7 +40,7 @@ def main(args):
             evaluator = evaluate(documents_path=corpus_path,
                                  gold_path=corpus_path,
                                  pred_path=join(run, part),
-                                 language=_language_for_corpus(args.corpus))
+                                 language=args.language)
 
             entity = evaluator.entity_level()
             token = evaluator.token_level()
@@ -99,6 +93,8 @@ def main(args):
 def arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("corpus", help="Name of corpus (e.g., 'dummy', 'ons')", type=str)
+    parser.add_argument("language", help="Language to use for tokenizer",
+                        choices=Evaluator.supported_languages())
     return parser.parse_args()
 
 
