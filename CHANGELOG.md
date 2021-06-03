@@ -1,14 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/nedap/deidentify/tree/HEAD)
+## [v0.7.2](https://github.com/nedap/deidentify/tree/v0.7.2) (2021-06-03)
 
-[Full Changelog](https://github.com/nedap/deidentify/compare/v0.7.1...HEAD)
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.7.1...v0.7.2)
 
 **Closed issues:**
 
 - Surrogation output [\#56](https://github.com/nedap/deidentify/issues/56)
 - Surrogate Evaluation Script [\#55](https://github.com/nedap/deidentify/issues/55)
 - Surrogation Methods  [\#54](https://github.com/nedap/deidentify/issues/54)
+
+**Merged pull requests:**
+
+- Add language parameter to evaluate\_corpus [\#59](https://github.com/nedap/deidentify/pull/59) ([jantrienes](https://github.com/jantrienes))
+- Added French language [\#58](https://github.com/nedap/deidentify/pull/58) ([bbieniek](https://github.com/bbieniek))
 
 ## [v0.7.1](https://github.com/nedap/deidentify/tree/v0.7.1) (2021-02-15)
 
