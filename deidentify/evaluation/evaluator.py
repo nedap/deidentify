@@ -48,13 +48,16 @@ class Evaluator:
         if language == 'fr':
             from deidentify.tokenizer.tokenizer_fr import TokenizerFR
             self.tokenizer = TokenizerFR(disable=('tagger', 'parser', 'ner'))
+        if language == 'de':
+            from deidentify.tokenizer.tokenizer_de import TokenizerDE
+            self.tokenizer = TokenizerDE(disable=('tagger', 'parser', 'ner'))
         else:
             from deidentify.tokenizer.tokenizer_en import TokenizerEN
             self.tokenizer = TokenizerEN(disable=('tagger', 'parser', 'ner'))
 
     @staticmethod
     def supported_languages():
-        return ('nl', 'en', 'fr')
+        return ('nl', 'en', 'fr', 'de')
 
     def entity_level(self):
         metric = Metric('entity level')
