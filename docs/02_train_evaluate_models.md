@@ -94,7 +94,7 @@ ENT                 	tp: 5016  - fp: 187   - fn: 379   - tn: 115532 - precision:
 You can use the `evaluate_corpus.py` script to evaluate all runs for a given corpus. The script produces a CSV file with the evaluation measures for each corpus part (i.e., train/dev/test) that you can use this for further analysis.
 
 ```sh
-> python deidentify/evaluation/evaluate_corpus.py <corpus_name>
+> python deidentify/evaluation/evaluate_corpus.py <corpus_name> <language>
 [...]
 > tree output/evaluation/<corpus_name>
 output/evaluation/<corpus_name>
