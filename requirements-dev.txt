@@ -1,4 +1,4 @@
-pylint
+pylint==2.8.3
 pytest
 pytest-cov
 autopep8
