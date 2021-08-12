@@ -53,6 +53,11 @@ def get_embeddings(corpus_name: str,
         word_embeddings = 'fr'
         contextual_forward = 'fr-forward'
         contextual_backward = 'fr-backward'
+    elif language == 'de':
+        logger.info('Use German embeddings')
+        word_embeddings = 'de'
+        contextual_forward = 'de-forward'
+        contextual_backward = 'de-backward'
     else:
         logger.info('Use English embeddings')
         word_embeddings = 'glove'
@@ -188,7 +193,7 @@ def arg_parser():
     parser.add_argument("--contextual_backward_path",
                         help="Path to contextual string embeddings (backward)")
     parser.add_argument("--embedding_lang",
-                        choices=['en', 'nl', 'fr'],
+                        choices=['en', 'nl', 'fr', 'de'],
                         help="Specify language of embeddings.")
     parser.add_argument("--fine_tune",
                         help="Fine tune an existing model (has to be passed with --model_file)",

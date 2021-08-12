@@ -97,7 +97,7 @@ def arg_parser():
                         help="If passed, the final model is saved.",
                         action='store_true')
     parser.add_argument("--embedding_lang",
-                        choices=['en', 'nl', 'fr'],
+                        choices=['en', 'nl', 'fr', 'de'],
                         help="Specify language of embeddings.")
     return parser.parse_args()
 
