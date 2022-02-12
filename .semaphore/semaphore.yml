@@ -52,13 +52,6 @@ blocks:
           - sudo locale-gen nl_NL.UTF-8 de_DE.UTF-8
 
       jobs:
-        - name: Python 3.6
-          commands:
-            - sem-version python 3.6
-            - pip install -e . --progress-bar off
-            - python -m spacy download nl_core_news_sm
-            - python demo.py
-
         - name: Python 3.7
           commands:
             - sem-version python 3.7
