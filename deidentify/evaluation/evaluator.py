@@ -45,10 +45,10 @@ class Evaluator:
         if language == 'nl':
             from deidentify.tokenizer.tokenizer_ons import TokenizerOns
             self.tokenizer = TokenizerOns(disable=('tagger', 'parser', 'ner'))
-        if language == 'fr':
+        elif language == 'fr':
             from deidentify.tokenizer.tokenizer_fr import TokenizerFR
             self.tokenizer = TokenizerFR(disable=('tagger', 'parser', 'ner'))
-        if language == 'de':
+        elif language == 'de':
             from deidentify.tokenizer.tokenizer_de import TokenizerDE
             self.tokenizer = TokenizerDE(disable=('tagger', 'parser', 'ner'))
         else:
