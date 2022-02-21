@@ -6,9 +6,7 @@ This repository shares the resources developed in the following paper:
 
 > J. Trienes, D. Trieschnigg, C. Seifert, and D. Hiemstra. Comparing Rule-based, Feature-based and Deep Neural Methods for De-identification of Dutch Medical Records. In: *Proceedings of the 1st ACM WSDM Health Search and Data Mining Workshop (HSDM)*, 2020.
 
-You can get the authors' version of the paper from this link: [paper](https://arxiv.org/abs/2001.05714).
-
-Blog post: https://medium.com/nedap/de-identification-of-ehr-using-nlp-a270d40fc442.
+Read more about the work in our [paper](https://arxiv.org/abs/2001.05714) or [blog post](https://medium.com/nedap/de-identification-of-ehr-using-nlp-a270d40fc442).
 
 ## Quick Start
 
@@ -83,13 +81,9 @@ This should print the entities of the first document.
  Annotation(text='UMCU', start=234, end=238, tag='Hospital', doc_id='', ann_id='T8')]
 ```
 
-#### Masking or Replacing Annotations
+#### Mask Annotations
 
-`deidentify` implements two strategies to remove sensitive annotations from the documents: masking and surrogates.
-
-##### Masking
-
-Use masking to replace annotations with placeholders. Example: `Jan Jansen -> [Name]`
+Use masking to replace annotations with placeholders. Example: `Jan Jansen -> [NAME]`
 
 ```py
 from deidentify.util import mask_annotations
@@ -102,7 +96,7 @@ Which should print:
 
 > Dit is stukje tekst met daarin de naam [NAME]. De patient [NAME] (e: [EMAIL], t: [PHONE_FAX]) is [AGE] oud en woonachtig in [ADDRESS]. Hij werd op [DATE] door arts [NAME] ontslagen van de kliniek van het [HOSPITAL].
 
-##### Surrogates [experimental]
+#### Replace Annotations with Surrogates [experimental]
 
 Use sorrogate generation to replace annotations with random but realistic alternatives. Example: `Jan Jansen -> Bart Bakker`. The surrogate replacement strategy follows [Stubbs et al. (2015)](https://doi.org/10.1007/978-3-319-23633-9_27).
 
@@ -124,15 +118,15 @@ This code should print:
 
 There are currently three taggers that you can use:
 
-   * `deidentify.taggers.DeduceTagger`: A wrapper around the DEDUCE tagger by Menger et al. (2018, [code](https://github.com/vmenger/deduce), [paper](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365))
-   * `deidentify.taggers.CRFTagger`: A CRF tagger using the feature set by Liu et al. (2015, [paper](https://www.sciencedirect.com/science/article/pii/S1532046415001197))
-   * `deidentify.taggers.FlairTagger`: A wrapper around the Flair [`SequenceTagger`](https://github.com/zalandoresearch/flair/blob/2d6e89bdfe05644b4e5c7e8327f6ecc6b834ec9e/flair/models/sequence_tagger_model.py#L68) allowing the use of neural architectures such as BiLSTM-CRF. The pre-trained models below use contextualized string embeddings by Akbik et al. (2018, [paper](https://www.aclweb.org/anthology/C18-1139/))
+   * `DeduceTagger`: A wrapper around the DEDUCE tagger by Menger et al. (2018, [code](https://github.com/vmenger/deduce), [paper](https://www.sciencedirect.com/science/article/abs/pii/S0736585316307365))
+   * `CRFTagger`: A CRF tagger using the feature set by Liu et al. (2015, [paper](https://www.sciencedirect.com/science/article/pii/S1532046415001197))
+   * `FlairTagger`: A wrapper around the Flair [`SequenceTagger`](https://github.com/zalandoresearch/flair/blob/2d6e89bdfe05644b4e5c7e8327f6ecc6b834ec9e/flair/models/sequence_tagger_model.py#L68) allowing the use of neural architectures such as BiLSTM-CRF. The pre-trained models below use contextualized string embeddings by Akbik et al. (2018, [paper](https://www.aclweb.org/anthology/C18-1139/))
 
 All taggers implement the `deidentify.taggers.TextTagger` interface which you can implement to provide your own taggers.
 
 ### Tag Set
 
-A `deidentify.taggers.TextTagger` has a `tags` property that can be used to get the supported tags. Example: the FlairTagger tagger in above demo has following tags:
+Use the `TextTagger.tags` to get a list of supported tags. For the `FlairTagger` in above demo this looks as follows:
 
 ```py
 >>> tagger.tags
