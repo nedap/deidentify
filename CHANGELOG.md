@@ -1,5 +1,29 @@
 # Changelog
 
+## [Unreleased](https://github.com/nedap/deidentify/tree/HEAD)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.7.3...HEAD)
+
+**Closed issues:**
+
+- TypeError: \_\_init\_\_\(\) missing 1 required positional argument: 'text' while loading the model [\#64](https://github.com/nedap/deidentify/issues/64)
+
+## [v0.7.3](https://github.com/nedap/deidentify/tree/v0.7.3) (2022-05-05)
+
+[Full Changelog](https://github.com/nedap/deidentify/compare/v0.7.2...v0.7.3)
+
+**Closed issues:**
+
+- Language of the Evaluator's Tokenizer is set to English when asked for Dutch or French. [\#62](https://github.com/nedap/deidentify/issues/62)
+- Paths when running training [\#57](https://github.com/nedap/deidentify/issues/57)
+
+**Merged pull requests:**
+
+- update project dependencies in setup.py [\#65](https://github.com/nedap/deidentify/pull/65) ([osmalpkoras](https://github.com/osmalpkoras))
+- Use correct language for tokenizer during evaluation [\#63](https://github.com/nedap/deidentify/pull/63) ([jantrienes](https://github.com/jantrienes))
+- Pin pylint version [\#61](https://github.com/nedap/deidentify/pull/61) ([jantrienes](https://github.com/jantrienes))
+- Added German language support [\#60](https://github.com/nedap/deidentify/pull/60) ([bbieniek](https://github.com/bbieniek))
+
 ## [v0.7.2](https://github.com/nedap/deidentify/tree/v0.7.2) (2021-06-03)
 
 [Full Changelog](https://github.com/nedap/deidentify/compare/v0.7.1...v0.7.2)
