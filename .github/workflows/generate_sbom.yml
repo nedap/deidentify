@@ -1,0 +1,27 @@
+name: Dependencies
+on:
+  push:
+    branches: [master]
+
+jobs:
+  generate-sboms:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nedap/gha-generate-python-sbom@v1
+        with:
+          format: conda
+          project-path: environment.yml
+      - uses: actions/upload-artifact@v3
+        with:
+          name: sboms
+          path: .sboms
+
+  upload-sboms:
+    needs: generate-sboms
+    runs-on: self-hosted
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: nedap/gha-upload-sboms@v6
