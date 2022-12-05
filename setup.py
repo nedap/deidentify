@@ -60,7 +60,7 @@ setuptools.setup(
         'torch>=1.1.0',
         'spacy>=2.2.1,<3',
         'tqdm>=4.29',
-        'deduce>=1.0.2',
+        'deduce>=1.0.2,<2',
         'loguru>=0.2.5',
         'sklearn-crfsuite>=0.3.6',
         'unidecode>=1.0.23',
