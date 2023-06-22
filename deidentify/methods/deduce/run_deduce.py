@@ -11,8 +11,10 @@ from deidentify.base import Document
 from deidentify.dataset.corpus_loader import CORPUS_PATH, CorpusLoader
 from deidentify.methods.deduce.deduce_labeler import DeduceAnnotator
 
-NAME_PREFIX_REGEX = re.compile(r'({})\.?\s*'.format('|'.join(deduce.lookup_lists.PREFIXES)),
-                               re.IGNORECASE)
+NAME_PREFIX_REGEX = re.compile(r'({})\.?\s*'.format('|'.join(
+    deduce.lookup_sets.get_lookup_sets()['prefixes']
+)),
+    re.IGNORECASE)
 
 DEDUCE_ONS_TAG_MAPPING = {
     "PATIENT": 'Name',
