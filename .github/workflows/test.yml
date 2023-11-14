@@ -1,0 +1,56 @@
+name: test
+on: [push]
+
+# https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: test
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create conda environment
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: environment.yml
+          environment-name: deidentify
+          cache-env: true
+
+      - name: Install dev dependencies
+        shell: bash -l {0}
+        run: |
+          micromamba activate deidentify
+          pip install -r requirements-dev.txt
+          pip install -e .
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: |
+          micromamba activate deidentify
+          make test
+
+  integration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run demo
+        shell: bash -l {0}
+        run: |
+          sudo apt-get install -y locales
+          sudo locale-gen nl_NL.UTF-8 de_DE.UTF-8
+          pip install -e . --progress-bar off
+          python -m spacy download nl_core_news_sm
+          python demo.py

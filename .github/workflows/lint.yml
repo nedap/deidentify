@@ -1,0 +1,34 @@
+name: lint
+on: [push]
+
+# https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: lint
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create conda environment
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: environment.yml
+          environment-name: deidentify
+          cache-env: true
+
+      - name: Install dev dependencies
+        shell: bash -l {0}
+        run: |
+          micromamba activate deidentify
+          pip install -r requirements-dev.txt
+          pip install -e .
+
+      - name: Run lint
+        shell: bash -l {0}
+        run: |
+          micromamba activate deidentify
+          make lintci
